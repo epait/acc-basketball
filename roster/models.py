@@ -45,7 +45,7 @@ class Player(models.Model):
 		ordering = ('team','name', 'position')
 
 	def __unicode__(self):
-		return U'%s, %s' %(self.name, self.position)
+		return U'%s, %s | %s' %(self.name, self.position, self.team)
 
 
 class Coach(models.Model):
@@ -66,8 +66,8 @@ class Coach(models.Model):
 
 
 class OffensiveStats(models.Model):
-	team = models.ForeignKey('Team', null=True)
-	player = models.ForeignKey('Player', null=True)
+	team = models.ForeignKey('Team', null=True, blank=True)
+	player = models.ForeignKey('Player', null=True, blank=True)
 	season = models.ForeignKey('Season', null=True)
 	points_per_game = models.DecimalField(null=True, max_digits=4, decimal_places=1, verbose_name='PPG')
 	rebounds_per_game = models.DecimalField(null=True, max_digits=3, decimal_places=1, verbose_name='RPG')
@@ -79,10 +79,16 @@ class OffensiveStats(models.Model):
 	class Meta(object):
 		verbose_name_plural = 'Offensive Stats' 
 
+	def __unicode__(self):
+		if self.team == None:
+			return U'%s' %(self.player)
+		else:
+			return U'%s' %(self.team)
+
 
 class DefensiveStats(models.Model):
-	team = models.ForeignKey('Team', null=True)
-	player = models.ForeignKey('Player', null=True)
+	team = models.ForeignKey('Team', null=True, blank=True)
+	player = models.ForeignKey('Player', null=True, blank=True)
 	season = models.ForeignKey('Season', null=True)
 	points_allowed_per_game = models.DecimalField(null=True, max_digits=4, decimal_places=1, verbose_name='Points Allowed')
 	blocks_per_game = models.DecimalField(null=True, max_digits=3, decimal_places=1, verbose_name='BPG')
@@ -91,7 +97,16 @@ class DefensiveStats(models.Model):
 	class Meta(object):
 		verbose_name_plural = 'Defensive Stats' 
 
+	def __unicode__(self):
+		if self.team == None:
+			return U'%s' %(self.player)
+		else:
+			return U'%s' %(self.team)
+
 
 class Season(models.Model):
 	start_year = models.IntegerField(null=True, max_length=4)
 	end_year = models.IntegerField(null=True, max_length=4)
+
+	def __unicode__(self):
+		return U'%s - %s' %(self.start_year, self.end_year)
