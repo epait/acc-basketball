@@ -113,3 +113,12 @@ a {
     background-color: #999 !important;
     background-image: none;
 }
+
+.icon-bar {
+    background-color: #004a87 !important;
+}
+
+.btn-navbar {
+    background-color: #fff !important;
+    background-image: none !important;
+}

@@ -6,16 +6,19 @@ from roster.models import Team, Player, Coach, Season, OffensiveStats, Defensive
 
 class TeamAdmin(admin.ModelAdmin):
 	search_fields = ('name',)
+	list_filter = ('conference',)
 
 admin.site.register(Team, TeamAdmin)
 
 class PlayerAdmin(admin.ModelAdmin):
 	search_fields = ('name',)
+	list_filter = ('position', 'team')
 
 admin.site.register(Player, PlayerAdmin)
 
 class CoachAdmin(admin.ModelAdmin):
 	search_fields = ('name',)
+	list_filter = ('position', 'team')
 
 admin.site.register(Coach, CoachAdmin)
 
