@@ -10,7 +10,8 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
-BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+PROJECT_ROOT = os.path.dirname(__file__)
+PROJECT_PATH = os.path.dirname(PROJECT_ROOT)
 
 
 # Quick-start development settings - unsuitable for production
@@ -30,12 +31,22 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = (
+    'django_admin_bootstrapped',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.admindocs',
+    'django.contrib.humanize',
+    'roster',
+)
+
+TEMPLATE_LOADERS = (
+    'django.template.loaders.filesystem.Loader',
+    'django.template.loaders.app_directories.Loader',
+    # 'django.template.Loaders.eggs.Loader',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -58,7 +69,11 @@ WSGI_APPLICATION = 'acc_basketball.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'NAME': os.path.join(PROJECT_PATH, 'acc_basketball.db'),
+        'USER': '',                        # Not used with sqlite3
+        'PASSWORD': '',                    # Not used with sqlite3
+        'HOST': '',                        # Set to empty string for localhost. Not used with sqlite3
+        'PORT': '',                        # Set to empty string for localhost. Not used with sqlite3
     }
 }
 
@@ -67,7 +82,7 @@ DATABASES = {
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/New_York'
 
 USE_I18N = True
 
@@ -79,4 +94,18 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 
+STATIC_ROOT = os.path.join(PROJECT_PATH, 'static_media')
+
 STATIC_URL = '/static/'
+
+MEDIA_ROOT = os.path.join(PROJECT_PATH, 'media_root')
+
+MEDIA_URL = '/media/'
+
+STATICFILES_DIRS = (
+    os.path.join(PROJECT_ROOT, 'static_media'),
+)
+
+TEMPLATE_DIRS = (
+    os.path.join(PROJECT_ROOT, 'templates'),
+)
