@@ -110,12 +110,12 @@ a {
 }
 
 .navbar .btn-primary {
-    background-color: #c5c5c5 !important;
+    background-color: #aaa !important;
     background-image: none;
 }
 
 .navbar .btn-primary:hover {
-    background-color: #999 !important;
+    background-color: #777 !important;
     background-image: none;
 }
 
