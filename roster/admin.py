@@ -7,12 +7,14 @@ from roster.models import Team, Player, Coach, Season, OffensiveStats, Defensive
 class TeamAdmin(admin.ModelAdmin):
 	search_fields = ('name',)
 	list_filter = ('conference',)
+	list_display = ('name', 'mascot', 'conference')
 
 admin.site.register(Team, TeamAdmin)
 
 class PlayerAdmin(admin.ModelAdmin):
 	search_fields = ('name',)
-	list_filter = ('position', 'team')
+	list_filter = ('team__name', 'position')
+	list_display = ('name', 'team', 'position', 'class_year', 'hometown')
 
 admin.site.register(Player, PlayerAdmin)
 

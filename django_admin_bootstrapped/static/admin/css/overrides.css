@@ -94,18 +94,23 @@ a {
     color: #004a87 !important;
 }
 
-.btn-primary {
-    background-color: #004a87 !important;
-    background-image: none !important;
+.actions {
+    color: #fff !important;
 }
 
-.btn-primary:hover {
+.btn-primary, ul.dropdown-menu li.active a, ul.dropdown-menu li a:hover {
+    background-color: #004a87 !important;
+    background-image: none !important;
+    color: #fff !important;
+}
+
+.btn-primary:hover, .open .dropdown-toggle {
     background-color: #003b6b !important;
     background-image: none !important;
 }
 
 .navbar .btn-primary {
-    background-color: #ccc !important;
+    background-color: #c5c5c5 !important;
     background-image: none;
 }
 

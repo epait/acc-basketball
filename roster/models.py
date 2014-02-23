@@ -3,7 +3,7 @@ from django.db import models
 # Create your models here.
 
 class Team(models.Model):
-	name = models.CharField(null=True, unique=True, max_length=100)
+	name = models.CharField(null=True, unique=True, max_length=100, verbose_name='Team')
 	mascot = models.CharField(null=True, max_length=100)
 	abbreviation = models.CharField(null=True, max_length=4)
 	wins = models.IntegerField(null=True, max_length=3)
@@ -15,7 +15,7 @@ class Team(models.Model):
 	color = models.CharField(null=True, max_length=7)
 
 	class Meta(object):
-		ordering = ('name',)
+		ordering = ('name', 'conference')
 
 	def __unicode__(self):
 		return U'%s' %(self.name)
@@ -42,7 +42,7 @@ class Player(models.Model):
 	portrait = models.ImageField(null=True, upload_to='portraits/players/', height_field=None, width_field=None, max_length=200)
 
 	class Meta(object):
-		ordering = ('position','name')
+		ordering = ('team','name', 'position')
 
 	def __unicode__(self):
 		return U'%s, %s' %(self.name, self.position)
