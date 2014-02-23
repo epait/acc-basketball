@@ -77,6 +77,7 @@ class OffensiveStats(models.Model):
 	three_point_percentage = models.DecimalField(null=True, max_digits=3, decimal_places=3, verbose_name='3P%')
 
 	class Meta(object):
+		verbose_name = 'Offensive Stats' 
 		verbose_name_plural = 'Offensive Stats' 
 
 	def __unicode__(self):
@@ -95,6 +96,7 @@ class DefensiveStats(models.Model):
 	steals_per_game = models.DecimalField(null=True, max_digits=3, decimal_places=1, verbose_name='SPG')
 
 	class Meta(object):
+		verbose_name = 'Defensive Stats' 
 		verbose_name_plural = 'Defensive Stats' 
 
 	def __unicode__(self):
