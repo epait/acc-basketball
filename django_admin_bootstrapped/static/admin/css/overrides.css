@@ -109,6 +109,21 @@ a {
     background-image: none !important;
 }
 
+.btn-inverse {
+    background-color: #f3f3f3 !important;
+    background-image: none !important;
+    color: #004a87 !important;
+}
+
+.btn-inverse:hover {
+    background-color: #ccc !important;
+    color: #004a87 !important;
+}
+
+.btn-danger {
+    color: #fff !important;
+}
+
 .navbar .btn-primary {
     background-color: #aaa !important;
     background-image: none;

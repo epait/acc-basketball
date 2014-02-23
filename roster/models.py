@@ -33,7 +33,7 @@ class Player(models.Model):
 		('SR', 'Senior'),
 	)
 	class_year = models.CharField(max_length=2, choices=class_year_choices)
-	date_of_birth = models.DateField()
+	date_of_birth = models.CharField(max_length=18, help_text='Please use the following format: <em>Month Day, Year</em>')
 	hometown=models.CharField(max_length=150, help_text='Please use the following format: <em>City, State</em>.')
 	height = models.IntegerField(max_length=3, help_text='Please use inches.')
 	weight = models.IntegerField(max_length=3, help_text='Please use pounds.')
