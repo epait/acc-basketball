@@ -1,10 +1,12 @@
 from scrapy.spider import Spider
+from scrapy.contrib.spiders import CrawlSpider, Rule
+from scrapy.contrib.linkextractors.sgml import SgmlLinkExtractor
 from scrapy.selector import Selector
 
-from roster_scraper.items import EspnItem, UncItem
+from roster_scraper.items import TeamItem, UncItem
 
 class EspnSpider(Spider):
-	name = 'espn'
+	name = 'acc_teams'
 	allowed_domains = ['espn.go.com']
 	start_urls = [
 		'http://espn.go.com/mens-college-basketball/conferences/standings/_/id/2/acc-conference'
@@ -15,16 +17,18 @@ class EspnSpider(Spider):
 		teams = sel.xpath('//table[1]/tr')
 		items = []
 		for team in teams:
-			item = EspnItem()
+			item = TeamItem()
 			item['name'] = team.xpath('td[1]/a/text()').extract()
 			item['link'] = team.xpath('td[1]/a/@href').extract()
 			item['record'] = team.xpath('td[2]/text()').extract()
 			items.append(item)
 		return items
 
-class UncSpider(Spider):
-	name = 'unc'
+
+class TeamSpider(Spider):
+	name = 'unc_players'
 	allowed_domains = ['espn.go.com']
+	depth_limit = 15
 	start_urls = [
 		'http://espn.go.com/mens-college-basketball/team/stats/_/id/153/north-carolina-tar-heels'
 	]

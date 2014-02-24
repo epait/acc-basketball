@@ -5,7 +5,7 @@
 
 from scrapy.item import Item, Field
 
-class EspnItem(Item):
+class TeamItem(Item):
     name = Field()
     link = Field()
     record = Field()
