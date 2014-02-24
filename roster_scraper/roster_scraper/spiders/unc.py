@@ -12,20 +12,20 @@ class EspnSpider(Spider):
 
 	def parse(self, response):
 		sel = Selector(response)
-		sites = sel.xpath('//table[1]/tr')
+		players = sel.xpath('//table[1]/tr')
 		items = []
-		for site in sites:
+		for player in players:
 			item = UncItem()
-			item['name'] = site.xpath('td[1]/a/text()').extract()
-			item['link'] = site.xpath('td[1]/a/@href').extract()
-			item['ppg'] = site.xpath('td[4]/text()').extract()
-			item['rpg'] = site.xpath('td[5]/text()').extract()
-			item['apg'] = site.xpath('td[6]/text()').extract()
-			item['spg'] = site.xpath('td[7]/text()').extract()
-			item['bpg'] = site.xpath('td[8]/text()').extract()
-			item['tpg'] = site.xpath('td[9]/text()').extract()
-			item['fgp'] = site.xpath('td[10]/text()').extract()
-			item['ftp'] = site.xpath('td[11]/text()').extract()
-			item['tpp'] = site.xpath('td[12]/text()').extract()
+			item['name'] = player.xpath('td[1]/a/text()').extract()
+			item['link'] = player.xpath('td[1]/a/@href').extract()
+			item['ppg'] = player.xpath('td[4]/text()').extract()
+			item['rpg'] = player.xpath('td[5]/text()').extract()
+			item['apg'] = player.xpath('td[6]/text()').extract()
+			item['spg'] = player.xpath('td[7]/text()').extract()
+			item['bpg'] = player.xpath('td[8]/text()').extract()
+			item['tpg'] = player.xpath('td[9]/text()').extract()
+			item['fgp'] = player.xpath('td[10]/text()').extract()
+			item['ftp'] = player.xpath('td[11]/text()').extract()
+			item['tpp'] = player.xpath('td[12]/text()').extract()
 			items.append(item)
 		return items

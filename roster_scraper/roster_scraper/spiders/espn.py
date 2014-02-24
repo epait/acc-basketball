@@ -12,12 +12,12 @@ class EspnSpider(Spider):
 
 	def parse(self, response):
 		sel = Selector(response)
-		sites = sel.xpath('//table[1]/tr')
+		teams = sel.xpath('//table[1]/tr')
 		items = []
-		for site in sites:
+		for team in teams:
 			item = EspnItem()
-			item['name'] = site.xpath('td[1]/a/text()').extract()
-			item['link'] = site.xpath('td[1]/a/@href').extract()
-			item['record'] = site.xpath('td[2]/text()').extract()
+			item['name'] = team.xpath('td[1]/a/text()').extract()
+			item['link'] = team.xpath('td[1]/a/@href').extract()
+			item['record'] = team.xpath('td[2]/text()').extract()
 			items.append(item)
 		return items
