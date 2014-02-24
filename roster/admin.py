@@ -41,11 +41,11 @@ class SeasonStatsAdmin(admin.ModelAdmin):
         }),
         ('Offensive Stats', {
         	'classes': ('collapse', 'in'),
-        	'fields': ('points_per_game', 'rebounds_per_game', 'assists_per_game', 'field_goal_percentage', 'free_throw_percentage', 'three_point_percentage')
+        	'fields': ('points_per_game', 'rebounds_per_game', 'assists_per_game', 'turnovers_per_game', 'field_goal_percentage', 'free_throw_percentage', 'three_point_percentage')
         }),
         ('Defensive Stats', {
         	'classes': ('collapse', 'in'),
-        	'fields': ('points_allowed_per_game', 'blocks_per_game', 'steals_per_game')
+        	'fields': ('blocks_per_game', 'steals_per_game')
         }),
     )
 

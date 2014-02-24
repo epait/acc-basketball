@@ -72,10 +72,10 @@ class SeasonStats(models.Model):
 	points_per_game = models.DecimalField(max_digits=4, decimal_places=1, verbose_name='PPG')
 	rebounds_per_game = models.DecimalField(max_digits=3, decimal_places=1, verbose_name='RPG')
 	assists_per_game = models.DecimalField(max_digits=3, decimal_places=1, verbose_name='APG')
+	turnovers_per_game = models.DecimalField(max_digits=3, decimal_places=1, verbose_name='TPG')
 	field_goal_percentage = models.DecimalField(max_digits=3, decimal_places=3, verbose_name='FG%')
 	free_throw_percentage = models.DecimalField(max_digits=3, decimal_places=3, verbose_name='FT%')
 	three_point_percentage = models.DecimalField(max_digits=3, decimal_places=3, verbose_name='3P%')
-	points_allowed_per_game = models.DecimalField(max_digits=4, decimal_places=1, verbose_name='Points Allowed')
 	blocks_per_game = models.DecimalField(max_digits=3, decimal_places=1, verbose_name='BPG')
 	steals_per_game = models.DecimalField(max_digits=3, decimal_places=1, verbose_name='SPG')
 
