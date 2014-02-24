@@ -65,7 +65,7 @@ class Coach(models.Model):
 		return U'%s, %s' %(self.name, self.position)
 
 
-class OffensiveStats(models.Model):
+class SeasonStats(models.Model):
 	team = models.ForeignKey('Team', null=True, blank=True)
 	player = models.ForeignKey('Player', null=True, blank=True)
 	season = models.ForeignKey('Season') 
@@ -75,35 +75,19 @@ class OffensiveStats(models.Model):
 	field_goal_percentage = models.DecimalField(max_digits=3, decimal_places=3, verbose_name='FG%')
 	free_throw_percentage = models.DecimalField(max_digits=3, decimal_places=3, verbose_name='FT%')
 	three_point_percentage = models.DecimalField(max_digits=3, decimal_places=3, verbose_name='3P%')
-
-	class Meta(object):
-		verbose_name = 'Offensive Stats' 
-		verbose_name_plural = 'Offensive Stats' 
-
-	def __unicode__(self):
-		if self.team == None:
-			return U'%s' %(self.player)
-		else:
-			return U'%s' %(self.team)
-
-
-class DefensiveStats(models.Model):
-	team = models.ForeignKey('Team', null=True, blank=True)
-	player = models.ForeignKey('Player', null=True, blank=True)
-	season = models.ForeignKey('Season') 
 	points_allowed_per_game = models.DecimalField(max_digits=4, decimal_places=1, verbose_name='Points Allowed')
 	blocks_per_game = models.DecimalField(max_digits=3, decimal_places=1, verbose_name='BPG')
 	steals_per_game = models.DecimalField(max_digits=3, decimal_places=1, verbose_name='SPG')
 
 	class Meta(object):
-		verbose_name = 'Defensive Stats' 
-		verbose_name_plural = 'Defensive Stats' 
+		verbose_name = 'Season Stats' 
+		verbose_name_plural = 'Season Stats' 
 
 	def __unicode__(self):
 		if self.team == None:
-			return U'%s' %(self.player)
+			return U'(%s) %s' %(self.season, self.player)
 		else:
-			return U'%s' %(self.team)
+			return U'(%s) %s' %(self.season, self.team)
 
 
 class Season(models.Model):

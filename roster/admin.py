@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django_admin_bootstrapped.admin.models import SortableInline
-from roster.models import Team, Player, Coach, Season, OffensiveStats, DefensiveStats
+from roster.models import Team, Player, Coach, Season, SeasonStats
 
 # Register your models here.
 
@@ -29,12 +29,24 @@ class SeasonAdmin(admin.ModelAdmin):
 
 admin.site.register(Season, SeasonAdmin)
 
-class OffensiveStatsAdmin(admin.ModelAdmin):
-	search_fields = ('',)
+class SeasonStatsAdmin(admin.ModelAdmin):
+	fieldsets = (
+		(None, {
+			'fields': ('season',)
+		}),
+        ('Type', {
+        	'classes': ('collapse', 'in'),
+            'fields': ('player', 'team'),
+            'description': 'Please choose <em>either</em> a team <em>or</em> a player.'
+        }),
+        ('Offensive Stats', {
+        	'classes': ('collapse', 'in'),
+        	'fields': ('points_per_game', 'rebounds_per_game', 'assists_per_game', 'field_goal_percentage', 'free_throw_percentage', 'three_point_percentage')
+        }),
+        ('Defensive Stats', {
+        	'classes': ('collapse', 'in'),
+        	'fields': ('points_allowed_per_game', 'blocks_per_game', 'steals_per_game')
+        }),
+    )
 
-admin.site.register(OffensiveStats, OffensiveStatsAdmin)
-
-class DefensiveStatsAdmin(admin.ModelAdmin):
-	search_fields = ('',)
-
-admin.site.register(DefensiveStats, DefensiveStatsAdmin)
+admin.site.register(SeasonStats, SeasonStatsAdmin)
