@@ -1,18 +1,15 @@
 from django.db import models
 
 # Create your models here.
-
+ 
 class Team(models.Model):
-	name = models.CharField(unique=True, max_length=100, verbose_name='Team')
-	mascot = models.CharField(max_length=100)
-	abbreviation = models.CharField(max_length=4)
-	wins = models.IntegerField(max_length=3)
-	losses = models.IntegerField(max_length=3)
-	conference = models.CharField(max_length=50)
-	conference_wins = models.IntegerField(max_length=3)
-	conference_losses = models.IntegerField(max_length=3)
-	portrait = models.ImageField(upload_to='portraits/teams/', height_field=None, width_field=None, max_length=200)
-	color = models.CharField(max_length=7)
+	name = models.CharField(null=True, unique=True, max_length=100, verbose_name='Team')
+	abbreviation = models.CharField(null=True, max_length=4)
+	overall_record = models.CharField(null=True, max_length=5)
+	conference = models.CharField(null=True, max_length=50)
+	conference_record = models.CharField(null=True, max_length=5)
+	portrait = models.ImageField(null=True, upload_to='portraits/teams/', height_field=None, width_field=None, max_length=200)
+	color = models.CharField(null=True, max_length=7)
 
 	class Meta(object):
 		ordering = ('name', 'conference')
