@@ -4,7 +4,7 @@ from django.db import models
  
 class Team(models.Model):
 	name = models.CharField(null=True, unique=True, max_length=100, verbose_name='Team')
-	abbreviation = models.CharField(null=True, max_length=4)
+ 	abbreviation = models.CharField(null=True, max_length=4)
 	overall_record = models.CharField(null=True, max_length=5)
 	conference = models.CharField(null=True, max_length=50)
 	conference_record = models.CharField(null=True, max_length=5)
@@ -19,24 +19,24 @@ class Team(models.Model):
 
 
 class Player(models.Model):
-	name = models.CharField(max_length=75)
-	team = models.ForeignKey('Team')
-	position = models.CharField(max_length=25)
-	number = models.IntegerField(max_length=2)
+	name = models.CharField(null=True, max_length=75)
+	team = models.ForeignKey('Team', null=True)
+	position = models.CharField(null=True, max_length=25)
+	number = models.IntegerField(null=True, max_length=2)
 	class_year_choices = (
 		('FR', 'Freshman'),
 		('SO', 'Sophomore'),
 		('JR', 'Junior'),
 		('SR', 'Senior'),
 	)
-	class_year = models.CharField(max_length=2, choices=class_year_choices)
-	date_of_birth = models.CharField(max_length=18, help_text='Please use the following format: <em>Month Day, Year</em>')
-	hometown=models.CharField(max_length=150, help_text='Please use the following format: <em>City, State</em>.')
-	height = models.IntegerField(max_length=3, help_text='Please use inches.')
-	weight = models.IntegerField(max_length=3, help_text='Please use pounds.')
-	high_school = models.CharField(max_length=100)
-	bio = models.TextField()
-	portrait = models.ImageField(upload_to='portraits/players/', height_field=None, width_field=None, max_length=200)
+	class_year = models.CharField(null=True, max_length=2, choices=class_year_choices)
+	date_of_birth = models.CharField(null=True, max_length=18, help_text='Please use the following format: <em>Month Day, Year</em>')
+	hometown=models.CharField(null=True, max_length=150, help_text='Please use the following format: <em>City, State</em>.')
+	height = models.IntegerField(null=True, max_length=3, help_text='Please use inches.')
+	weight = models.IntegerField(null=True, max_length=3, help_text='Please use pounds.')
+	high_school = models.CharField(null=True, max_length=100)
+	bio = models.TextField(null=True)
+	portrait = models.ImageField(null=True, upload_to='portraits/players/', height_field=None, width_field=None, max_length=200)
 
 	class Meta(object):
 		ordering = ('team','name', 'position')
@@ -46,13 +46,13 @@ class Player(models.Model):
 
 
 class Coach(models.Model):
-	name = models.CharField(max_length=75)
-	team = models.ForeignKey('Team')
-	position = models.CharField(max_length=25)
-	bio = models.TextField()
-	hometown = models.CharField(max_length=150, help_text='Please use the following format: <em>City, State</em>.')
-	experience = models.IntegerField(max_length=3)
-	portrait = models.ImageField(upload_to='portraits/coaches/', height_field=None, width_field=None, max_length=200)
+	name = models.CharField(null=True, max_length=75)
+	team = models.ForeignKey('Team', null=True)
+	position = models.CharField(null=True, max_length=25)
+	bio = models.TextField(null=True, )
+	hometown = models.CharField(null=True, max_length=150, help_text='Please use the following format: <em>City, State</em>.')
+	experience = models.IntegerField(null=True, max_length=3)
+	portrait = models.ImageField(null=True, upload_to='portraits/coaches/', height_field=None, width_field=None, max_length=200)
 
 	class Meta(object):
 		verbose_name_plural = 'Coaches' 
@@ -65,16 +65,16 @@ class Coach(models.Model):
 class SeasonStats(models.Model):
 	team = models.ForeignKey('Team', null=True, blank=True)
 	player = models.ForeignKey('Player', null=True, blank=True)
-	season = models.ForeignKey('Season') 
-	points_per_game = models.DecimalField(max_digits=4, decimal_places=1, verbose_name='PPG')
-	rebounds_per_game = models.DecimalField(max_digits=3, decimal_places=1, verbose_name='RPG')
-	assists_per_game = models.DecimalField(max_digits=3, decimal_places=1, verbose_name='APG')
-	turnovers_per_game = models.DecimalField(max_digits=3, decimal_places=1, verbose_name='TPG')
-	field_goal_percentage = models.DecimalField(max_digits=3, decimal_places=3, verbose_name='FG%')
-	free_throw_percentage = models.DecimalField(max_digits=3, decimal_places=3, verbose_name='FT%')
-	three_point_percentage = models.DecimalField(max_digits=3, decimal_places=3, verbose_name='3P%')
-	blocks_per_game = models.DecimalField(max_digits=3, decimal_places=1, verbose_name='BPG')
-	steals_per_game = models.DecimalField(max_digits=3, decimal_places=1, verbose_name='SPG')
+	season = models.ForeignKey('Season', null=True) 
+	points_per_game = models.DecimalField(null=True, max_digits=4, decimal_places=1, verbose_name='PPG')
+	rebounds_per_game = models.DecimalField(null=True, max_digits=3, decimal_places=1, verbose_name='RPG')
+	assists_per_game = models.DecimalField(null=True, max_digits=3, decimal_places=1, verbose_name='APG')
+	turnovers_per_game = models.DecimalField(null=True, max_digits=3, decimal_places=1, verbose_name='TPG')
+	field_goal_percentage = models.DecimalField(null=True, max_digits=3, decimal_places=3, verbose_name='FG%')
+	free_throw_percentage = models.DecimalField(null=True, max_digits=3, decimal_places=3, verbose_name='FT%')
+	three_point_percentage = models.DecimalField(null=True, max_digits=3, decimal_places=3, verbose_name='3P%')
+	blocks_per_game = models.DecimalField(null=True, max_digits=3, decimal_places=1, verbose_name='BPG')
+	steals_per_game = models.DecimalField(null=True, max_digits=3, decimal_places=1, verbose_name='SPG')
 
 	class Meta(object):
 		verbose_name = 'Season Stats' 
@@ -88,8 +88,8 @@ class SeasonStats(models.Model):
 
 
 class Season(models.Model):
-	start_year = models.IntegerField(max_length=4)
-	end_year = models.IntegerField(max_length=4)
+	start_year = models.IntegerField(null=True, max_length=4)
+	end_year = models.IntegerField(null=True, max_length=4)
 
 	def __unicode__(self):
 		return U'%s - %s' %(self.start_year, self.end_year)

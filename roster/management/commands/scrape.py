@@ -1,6 +1,6 @@
 from django.core.management.base import BaseCommand, CommandError
 from bs4 import BeautifulSoup
-from roster.models import Team
+from roster.models import Team, Player, SeasonStats
 
 #below imports only needed if from URL
 import urllib2
@@ -45,8 +45,9 @@ class Command(BaseCommand):
 				team_names.append(link.get_text())
 
 				name = link.get_text()
-				team_conference_records.append(soup.find(text=name).next.text)
-				team_overall_records.append(soup.find(text=name).next.next.next.next.next.next.next.text)
+				team_conference_records.append(link.find(text=name).next.text)
+				team_overall_records.append(link.find(text=name).next.next.next.next.next.next.next.text)
+
 
 				team_url = link.get('href')
 				response = urllib2.urlopen(team_url)
@@ -87,6 +88,10 @@ class Command(BaseCommand):
 				player_ftp = []
 				player_tpp = []
 
+				team_data = Team.objects.create(name= team_names[team_count], conference= team_conference, conference_record= team_conference_records[team_count], overall_record= team_overall_records[team_count])
+				team_data.save()
+				print team_names[team_count], team_overall_records[team_count], team_conference_records[team_count]
+
 				for player in playerdata.select('.evenrow a'):
 					player_names.append(player.get_text())
 					name = player.get_text()
@@ -99,6 +104,12 @@ class Command(BaseCommand):
 					player_fgp.append(soup.find(text=name).next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.text)
 					player_ftp.append(soup.find(text=name).next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.text)
 					player_tpp.append(soup.find(text=name).next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.text)
+					print player_names[player_count], player_ppg[player_count], player_rpg[player_count], player_apg[player_count], player_spg[player_count], player_bpg[player_count], player_tpg[player_count], player_fgp[player_count], player_ftp[player_count], player_tpp[player_count]
+					player_data = Player.objects.create(name= player_names[player_count], team= Team.objects.get(name=team_names[team_count]))
+					player_data.save()
+					player_stats_data = SeasonStats.objects.create(player= Player.objects.get(name=player_names[player_count]), points_per_game= player_ppg[player_count], rebounds_per_game= player_rpg[player_count])
+					player_stats_data.save()
+
 					player_count += 1
 
 				for player in playerdata.select('.oddrow a'):
@@ -113,13 +124,16 @@ class Command(BaseCommand):
 					player_fgp.append(soup.find(text=name).next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.text)
 					player_ftp.append(soup.find(text=name).next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.text)
 					player_tpp.append(soup.find(text=name).next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.text)
+					print player_names[player_count], player_ppg[player_count], player_rpg[player_count], player_apg[player_count], player_spg[player_count], player_bpg[player_count], player_tpg[player_count], player_fgp[player_count], player_ftp[player_count], player_tpp[player_count]
+					player_data = Player.objects.create(name= player_names[player_count], team= Team.objects.get(name=team_names[team_count]))
+					player_data.save()
+					player_stats_data = SeasonStats.objects.create(player= Player.objects.get(name=player_names[player_count]), points_per_game= player_ppg[player_count], rebounds_per_game= player_rpg[player_count])
+					player_stats_data.save()
+					
 					player_count += 1
 
-				print team_names[team_count], player_names[0], player_ppg[0], player_rpg[0], player_apg[0], player_spg[0], player_bpg[0], player_tpg[0], player_fgp[0], player_ftp[0], player_tpp[0]
-
-			# 	team_data = Team.objects.create(name= team_names[team_count], conference= team_conference, conference_record= team_conference_records[team_count], overall_record= team_overall_records[team_count])
-			# 	team_data.save()
 				team_count += 1
+
 
 
 			# print team_names
