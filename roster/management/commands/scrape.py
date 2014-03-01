@@ -40,7 +40,7 @@ class Command(BaseCommand):
 			team_conference = 'ACC'
 			team_stats_links = []
 
-			season_data = Season.objects.create(start_year= 2013, end_year= 2014)
+			season_data, created = Season.objects.get_or_create(start_year= 2013, end_year= 2014)
 			season_data.save()
 
 			for link in tabledata.find_all('a'):
@@ -91,7 +91,10 @@ class Command(BaseCommand):
 				player_ftp = []
 				player_tpp = []
 
-				team_data = Team.objects.create(name= team_names[team_count], conference= team_conference, conference_record= team_conference_records[team_count], overall_record= team_overall_records[team_count])
+				team_data, created = Team.objects.get_or_create(name= team_names[team_count])
+				team_data.conference = team_conference
+				team_data.conference_record = team_conference_records[team_count] 
+				team_data.overall_record = team_overall_records[team_count]
 				team_data.save()
 				print team_names[team_count], team_overall_records[team_count], team_conference_records[team_count]
 
@@ -108,9 +111,19 @@ class Command(BaseCommand):
 					player_ftp.append(soup.find(text=name).next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.text)
 					player_tpp.append(soup.find(text=name).next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.text)
 					print player_names[player_count], player_ppg[player_count], player_rpg[player_count], player_apg[player_count], player_spg[player_count], player_bpg[player_count], player_tpg[player_count], player_fgp[player_count], player_ftp[player_count], player_tpp[player_count]
-					player_data = Player.objects.create(name= player_names[player_count], team= Team.objects.get(name=team_names[team_count]))
+					player_data, created = Player.objects.get_or_create(name= player_names[player_count]) 
+					player_data.team = Team.objects.get(name=team_names[team_count])
 					player_data.save()
-					player_stats_data = SeasonStats.objects.create(season= Season.objects.get(start_year= 2013, end_year= 2014),player= Player.objects.get(name=player_names[player_count]), points_per_game= player_ppg[player_count], rebounds_per_game= player_rpg[player_count])
+					player_stats_data, created = SeasonStats.objects.get_or_create(season= Season.objects.get(start_year= 2013, end_year= 2014), player= Player.objects.get(name=player_names[player_count])) 
+					player_stats_data.points_per_game = player_ppg[player_count] 
+					player_stats_data.rebounds_per_game = player_rpg[player_count]
+					player_stats_data.assists_per_game = player_apg[player_count]
+					player_stats_data.steals_per_game = player_spg[player_count]
+					player_stats_data.turnovers_per_game = player_bpg[player_count]
+					player_stats_data.blocks_per_game = player_bpg[player_count]
+					player_stats_data.free_throw_percentage = player_ftp[player_count]
+					player_stats_data.field_goal_percentage = player_fgp[player_count]
+					player_stats_data.three_point_percentage = player_tpp[player_count]
 					player_stats_data.save()
 
 					player_count += 1
@@ -128,9 +141,19 @@ class Command(BaseCommand):
 					player_ftp.append(soup.find(text=name).next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.text)
 					player_tpp.append(soup.find(text=name).next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.text)
 					print player_names[player_count], player_ppg[player_count], player_rpg[player_count], player_apg[player_count], player_spg[player_count], player_bpg[player_count], player_tpg[player_count], player_fgp[player_count], player_ftp[player_count], player_tpp[player_count]
-					player_data = Player.objects.create(name= player_names[player_count], team= Team.objects.get(name=team_names[team_count]))
+					player_data, created = Player.objects.get_or_create(name= player_names[player_count]) 
+					player_data.team = Team.objects.get(name=team_names[team_count])
 					player_data.save()
-					player_stats_data = SeasonStats.objects.create(season= Season.objects.get(start_year= 2013, end_year= 2014),player= Player.objects.get(name=player_names[player_count]), points_per_game= player_ppg[player_count], rebounds_per_game= player_rpg[player_count])
+					player_stats_data, created = SeasonStats.objects.get_or_create(season= Season.objects.get(start_year= 2013, end_year= 2014), player= Player.objects.get(name=player_names[player_count])) 
+					player_stats_data.points_per_game = player_ppg[player_count] 
+					player_stats_data.rebounds_per_game = player_rpg[player_count]
+					player_stats_data.assists_per_game = player_apg[player_count]
+					player_stats_data.steals_per_game = player_spg[player_count]
+					player_stats_data.turnovers_per_game = player_bpg[player_count]
+					player_stats_data.blocks_per_game = player_bpg[player_count]
+					player_stats_data.free_throw_percentage = player_ftp[player_count]
+					player_stats_data.field_goal_percentage = player_fgp[player_count]
+					player_stats_data.three_point_percentage = player_tpp[player_count]
 					player_stats_data.save()
 
 					player_count += 1

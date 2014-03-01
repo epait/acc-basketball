@@ -8,7 +8,7 @@ import re
 
 class Command(BaseCommand):
 	args = '<url>'
-	help = 'Parses and imports player info from athletic department websites'
+	help = 'Parses and imports player info from the unc athletic department website'
 
 	def handle(self, *args, **options):
 		try:
@@ -16,7 +16,7 @@ class Command(BaseCommand):
 
 
 			#use code below when file to import is on web server
-			response = urllib2.urlopen("http://www.goheels.com/SportSelect.dbml?SITE=UNC&DB_OEM_ID=3350&SPID=12965&SPSID=667867")
+			response = urllib2.urlopen("http://www.goheels.com/SportSelect.dbml?SITE=UNC&DB_OEM_ID=3350&SPID=12965&SPSID=667867", "http://www.goduke.com/SportSelect.dbml?SPSID=22727&SPID=1845")
 			html = response.read()
 
 			#end server version
@@ -47,10 +47,8 @@ class Command(BaseCommand):
 			for link in tabledata.find_all('a'):
 				player_links.append(link.get('href'))
 				name_list = link.text.strip().replace(',', '').split(' ')
-				if len(name_list) > 2:
-					reverse_name = name_list[::-2]
-				else:
-					reverse_name = name_list[::-1]
+				reverse_places = len(name_list) - 1
+				reverse_name = name_list[::-reverse_places]
 				name = ' '.join(reverse_name)
 				player_names.append(name)
 
@@ -105,7 +103,7 @@ class Command(BaseCommand):
 				current_player.highschool = player_highschools[player_count]
 				current_player.class_year = player_class_years[player_count]
 				current_player.save()
-				# player_data.save()
+
 				player_count += 1
 
 

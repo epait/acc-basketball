@@ -66,14 +66,14 @@ class SeasonStats(models.Model):
 	player = models.ForeignKey('Player', null=True, blank=True)
 	season = models.ForeignKey('Season', null=True) 
 	points_per_game = models.DecimalField(null=True, max_digits=4, decimal_places=1, verbose_name='PPG')
-	rebounds_per_game = models.DecimalField(null=True, max_digits=3, decimal_places=1, verbose_name='RPG')
+	rebounds_per_game = models.DecimalField(null=True, max_digits=4, decimal_places=1, verbose_name='RPG')
 	assists_per_game = models.DecimalField(null=True, max_digits=3, decimal_places=1, verbose_name='APG')
-	turnovers_per_game = models.DecimalField(null=True, max_digits=3, decimal_places=1, verbose_name='TPG')
-	field_goal_percentage = models.DecimalField(null=True, max_digits=3, decimal_places=3, verbose_name='FG%')
-	free_throw_percentage = models.DecimalField(null=True, max_digits=3, decimal_places=3, verbose_name='FT%')
-	three_point_percentage = models.DecimalField(null=True, max_digits=3, decimal_places=3, verbose_name='3P%')
-	blocks_per_game = models.DecimalField(null=True, max_digits=3, decimal_places=1, verbose_name='BPG')
-	steals_per_game = models.DecimalField(null=True, max_digits=3, decimal_places=1, verbose_name='SPG')
+	turnovers_per_game = models.DecimalField(null=True, max_digits=4, decimal_places=1, verbose_name='TPG')
+	field_goal_percentage = models.DecimalField(null=True, max_digits=4, decimal_places=3, verbose_name='FG%')
+	free_throw_percentage = models.DecimalField(null=True, max_digits=4, decimal_places=3, verbose_name='FT%')
+	three_point_percentage = models.DecimalField(null=True, max_digits=4, decimal_places=3, verbose_name='3P%')
+	blocks_per_game = models.DecimalField(null=True, max_digits=4, decimal_places=1, verbose_name='BPG')
+	steals_per_game = models.DecimalField(null=True, max_digits=4, decimal_places=1, verbose_name='SPG')
 
 	class Meta(object):
 		verbose_name = 'Season Stats' 
