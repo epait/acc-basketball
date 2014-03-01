@@ -1,6 +1,6 @@
 from django.core.management.base import BaseCommand, CommandError
 from bs4 import BeautifulSoup
-from roster.models import Team, Player, SeasonStats
+from roster.models import Team, Player, Season, SeasonStats
 
 #below imports only needed if from URL
 import urllib2
@@ -39,6 +39,9 @@ class Command(BaseCommand):
 			team_overall_records = []
 			team_conference = 'ACC'
 			team_stats_links = []
+
+			season_data = Season.objects.create(start_year= 2013, end_year= 2014)
+			season_data.save()
 
 			for link in tabledata.find_all('a'):
 				team_links.append(link.get('href'))
@@ -93,8 +96,8 @@ class Command(BaseCommand):
 				print team_names[team_count], team_overall_records[team_count], team_conference_records[team_count]
 
 				for player in playerdata.select('.evenrow a'):
-					player_names.append(player.get_text())
-					name = player.get_text()
+					player_names.append(player.text.strip())
+					name = player.text.strip()
 					player_ppg.append(soup.find(text=name).next.next.next.next.next.text)
 					player_rpg.append(soup.find(text=name).next.next.next.next.next.next.next.text)
 					player_apg.append(soup.find(text=name).next.next.next.next.next.next.next.next.next.text)
@@ -107,14 +110,14 @@ class Command(BaseCommand):
 					print player_names[player_count], player_ppg[player_count], player_rpg[player_count], player_apg[player_count], player_spg[player_count], player_bpg[player_count], player_tpg[player_count], player_fgp[player_count], player_ftp[player_count], player_tpp[player_count]
 					player_data = Player.objects.create(name= player_names[player_count], team= Team.objects.get(name=team_names[team_count]))
 					player_data.save()
-					player_stats_data = SeasonStats.objects.create(player= Player.objects.get(name=player_names[player_count]), points_per_game= player_ppg[player_count], rebounds_per_game= player_rpg[player_count])
+					player_stats_data = SeasonStats.objects.create(season= Season.objects.get(start_year= 2013, end_year= 2014),player= Player.objects.get(name=player_names[player_count]), points_per_game= player_ppg[player_count], rebounds_per_game= player_rpg[player_count])
 					player_stats_data.save()
 
 					player_count += 1
 
 				for player in playerdata.select('.oddrow a'):
-					player_names.append(player.get_text())
-					name = player.get_text()
+					player_names.append(player.text.strip())
+					name = player.text.strip()
 					player_ppg.append(soup.find(text=name).next.next.next.next.next.text)
 					player_rpg.append(soup.find(text=name).next.next.next.next.next.next.next.text)
 					player_apg.append(soup.find(text=name).next.next.next.next.next.next.next.next.next.text)
@@ -127,9 +130,9 @@ class Command(BaseCommand):
 					print player_names[player_count], player_ppg[player_count], player_rpg[player_count], player_apg[player_count], player_spg[player_count], player_bpg[player_count], player_tpg[player_count], player_fgp[player_count], player_ftp[player_count], player_tpp[player_count]
 					player_data = Player.objects.create(name= player_names[player_count], team= Team.objects.get(name=team_names[team_count]))
 					player_data.save()
-					player_stats_data = SeasonStats.objects.create(player= Player.objects.get(name=player_names[player_count]), points_per_game= player_ppg[player_count], rebounds_per_game= player_rpg[player_count])
+					player_stats_data = SeasonStats.objects.create(season= Season.objects.get(start_year= 2013, end_year= 2014),player= Player.objects.get(name=player_names[player_count]), points_per_game= player_ppg[player_count], rebounds_per_game= player_rpg[player_count])
 					player_stats_data.save()
-					
+
 					player_count += 1
 
 				team_count += 1

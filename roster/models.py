@@ -24,18 +24,17 @@ class Player(models.Model):
 	position = models.CharField(null=True, max_length=25)
 	number = models.IntegerField(null=True, max_length=2)
 	class_year_choices = (
-		('FR', 'Freshman'),
-		('SO', 'Sophomore'),
-		('JR', 'Junior'),
-		('SR', 'Senior'),
+		('Freshman', 'Freshman'),
+		('Sophomore', 'Sophomore'),
+		('Junior', 'Junior'),
+		('Senior', 'Senior'),
 	)
-	class_year = models.CharField(null=True, max_length=2, choices=class_year_choices)
-	date_of_birth = models.CharField(null=True, max_length=18, help_text='Please use the following format: <em>Month Day, Year</em>')
-	hometown=models.CharField(null=True, max_length=150, help_text='Please use the following format: <em>City, State</em>.')
-	height = models.IntegerField(null=True, max_length=3, help_text='Please use inches.')
+	class_year = models.CharField(null=True, max_length=2, choices=class_year_choices, verbose_name='Class Year')
+	# date_of_birth = models.CharField(null=True, max_length=18, help_text='Please use the following format: <em>Month Day, Year</em>')
+	hometown = models.CharField(null=True, max_length=150, help_text='Please use the following format: <em>City, State</em>.')
+	highschool = models.CharField(null=True, max_length=150, verbose_name='High School')
+	height = models.CharField(null=True, max_length=5, help_text='Please use the following format: <em>5\'11\"</em>.')
 	weight = models.IntegerField(null=True, max_length=3, help_text='Please use pounds.')
-	high_school = models.CharField(null=True, max_length=100)
-	bio = models.TextField(null=True)
 	portrait = models.ImageField(null=True, upload_to='portraits/players/', height_field=None, width_field=None, max_length=200)
 
 	class Meta(object):
