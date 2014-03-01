@@ -5,6 +5,7 @@ from roster.models import Team, Player, Season, SeasonStats
 #below imports only needed if from URL
 import urllib2
 import re
+import time
 
 class Command(BaseCommand):
 	args = '<url>'
@@ -34,11 +35,11 @@ class Command(BaseCommand):
 			tabledata = soup.find('table') #find the proper table
 			team_names = [] #list to store every player in the table
 			team_links = []
-			team_count = 0
 			team_conference_records = []
 			team_overall_records = []
 			team_conference = 'ACC'
 			team_stats_links = []
+			team_count = 0
 
 			season_data, created = Season.objects.get_or_create(start_year= 2013, end_year= 2014)
 			season_data.save()
@@ -91,12 +92,46 @@ class Command(BaseCommand):
 				player_ftp = []
 				player_tpp = []
 
+				team_ppg = []
+				team_rpg = []
+				team_apg = []
+				team_spg = []
+				team_bpg = []
+				team_tpg = []
+				team_fgp = []
+				team_ftp = []
+				team_tpp = []
+
 				team_data, created = Team.objects.get_or_create(name= team_names[team_count])
 				team_data.conference = team_conference
 				team_data.conference_record = team_conference_records[team_count] 
 				team_data.overall_record = team_overall_records[team_count]
 				team_data.save()
+
+				team_ppg.append(soup.find(text='Totals').next.next.next.next.next.text)
+				team_rpg.append(soup.find(text='Totals').next.next.next.next.next.next.next.text)
+				team_apg.append(soup.find(text='Totals').next.next.next.next.next.next.next.next.next.text)
+				team_spg.append(soup.find(text='Totals').next.next.next.next.next.next.next.next.next.next.next.text)
+				team_bpg.append(soup.find(text='Totals').next.next.next.next.next.next.next.next.next.next.next.next.next.text)
+				team_tpg.append(soup.find(text='Totals').next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.text)
+				team_fgp.append(soup.find(text='Totals').next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.text)
+				team_ftp.append(soup.find(text='Totals').next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.text)
+				team_tpp.append(soup.find(text='Totals').next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.text)
+
+				team_stats_data, created = SeasonStats.objects.get_or_create(season= Season.objects.get(start_year= 2013, end_year= 2014), team= Team.objects.get(name=team_names[team_count]))
+				team_stats_data.points_per_game = team_ppg[0] 
+				team_stats_data.rebounds_per_game = team_rpg[0]
+				team_stats_data.assists_per_game = team_apg[0]
+				team_stats_data.steals_per_game = team_spg[0]
+				team_stats_data.turnovers_per_game = team_tpg[0]
+				team_stats_data.blocks_per_game = team_bpg[0]
+				team_stats_data.free_throw_percentage = team_ftp[0]
+				team_stats_data.field_goal_percentage = team_fgp[0]
+				team_stats_data.three_point_percentage = team_tpp[0]
+				team_stats_data.save()
+
 				print team_names[team_count], team_overall_records[team_count], team_conference_records[team_count]
+
 
 				for player in playerdata.select('.evenrow a'):
 					player_names.append(player.text.strip())
@@ -158,6 +193,7 @@ class Command(BaseCommand):
 
 					player_count += 1
 
+				print ' '
 				team_count += 1
 
 

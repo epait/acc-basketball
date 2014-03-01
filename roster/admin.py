@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django_admin_bootstrapped.admin.models import SortableInline
-from roster.models import Team, Player, Coach, Season, SeasonStats
+from roster.models import Team, Player, Season, SeasonStats#, Coach
 
 # Register your models here.
 
@@ -18,11 +18,11 @@ class PlayerAdmin(admin.ModelAdmin):
 
 admin.site.register(Player, PlayerAdmin)
 
-class CoachAdmin(admin.ModelAdmin):
-	search_fields = ('name',)
-	list_filter = ('position', 'team')
+# class CoachAdmin(admin.ModelAdmin):
+# 	search_fields = ('name',)
+# 	list_filter = ('position', 'team')
 
-admin.site.register(Coach, CoachAdmin)
+# admin.site.register(Coach, CoachAdmin)
 
 class SeasonAdmin(admin.ModelAdmin):
 	search_fields = ('',)

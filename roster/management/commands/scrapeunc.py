@@ -16,7 +16,7 @@ class Command(BaseCommand):
 
 
 			#use code below when file to import is on web server
-			response = urllib2.urlopen("http://www.goheels.com/SportSelect.dbml?SITE=UNC&DB_OEM_ID=3350&SPID=12965&SPSID=667867", "http://www.goduke.com/SportSelect.dbml?SPSID=22727&SPID=1845")
+			response = urllib2.urlopen("http://www.goheels.com/SportSelect.dbml?SITE=UNC&DB_OEM_ID=3350&SPID=12965&SPSID=667867")
 			html = response.read()
 
 			#end server version
@@ -92,7 +92,17 @@ class Command(BaseCommand):
 				# print player_count, player_names[player_count]
 				# print player_names[player_count]
 				current_player = Player.objects.get(name__contains= player_names[player_count])
-				print current_player.name
+				print 'Name:', current_player.name
+				print 'Portrait:', player_portraits[player_count]
+				print 'Number:', player_numbers[player_count]
+				print 'Position:', player_positions[player_count]
+				print 'Height:', player_heights[player_count]
+				print 'Weight:', player_weights[player_count]
+				print 'Class Year:', player_class_years[player_count]
+				print 'Hometown:', player_hometowns[player_count]
+				print 'High School:', player_highschools[player_count]
+				print ' '
+				
 				current_player.position = player_positions[player_count]
 				current_player.number = player_numbers[player_count]
 				current_player.portrait = player_portraits[player_count]

@@ -73,6 +73,14 @@ td.action-checkbox {
     max-width: 550px;
 }
 
+.quiet {
+    color: #fff !important;
+}
+
+.quiet a{
+    color: #c1c1c1 !important;
+}
+
 .navbar-inner {
     background-color: #004a87 !important;
     background-image: none !important;
