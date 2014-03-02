@@ -72,7 +72,7 @@ class Command(BaseCommand):
 				number = re.sub("[^0-9]", "", name.text.strip())
 				player_numbers.append(number)
 
-				for portrait in soup.select('#PlayerBioImage img'):
+				for portrait in soup.select('#PlayerBioImageContainer > img'):
 					player_portraits.append(portrait.get('src'))
 
 				for position in playerdata.find_all('td', {'class': 'PlayerBioPosValue'})[0]:
