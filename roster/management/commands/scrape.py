@@ -135,7 +135,6 @@ class Command(BaseCommand):
 
 
 				for player in playerdata.select('.evenrow a'):
-					player_names.append(player.text.strip())
 					name = player.text.strip()
 					player_ppg.append(soup.find(text=name).next.next.next.next.next.text)
 					player_rpg.append(soup.find(text=name).next.next.next.next.next.next.next.text)
@@ -146,6 +145,11 @@ class Command(BaseCommand):
 					player_fgp.append(soup.find(text=name).next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.text)
 					player_ftp.append(soup.find(text=name).next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.text)
 					player_tpp.append(soup.find(text=name).next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.text)
+					no_dash = re.sub('-', ' ', name)
+					if 'Baye-Moussa' or 'Arnaud-William' in name:
+						player_names.append(no_dash)
+					else:
+						player_names.append(name)
 					print player_names[player_count], player_ppg[player_count], player_rpg[player_count], player_apg[player_count], player_spg[player_count], player_bpg[player_count], player_tpg[player_count], player_fgp[player_count], player_ftp[player_count], player_tpp[player_count]
 					player_data, created = Player.objects.get_or_create(name= player_names[player_count]) 
 					player_data.team = Team.objects.get(name=team_names[team_count])
@@ -165,7 +169,6 @@ class Command(BaseCommand):
 					player_count += 1
 
 				for player in playerdata.select('.oddrow a'):
-					player_names.append(player.text.strip())
 					name = player.text.strip()
 					player_ppg.append(soup.find(text=name).next.next.next.next.next.text)
 					player_rpg.append(soup.find(text=name).next.next.next.next.next.next.next.text)
@@ -176,6 +179,11 @@ class Command(BaseCommand):
 					player_fgp.append(soup.find(text=name).next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.text)
 					player_ftp.append(soup.find(text=name).next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.text)
 					player_tpp.append(soup.find(text=name).next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.text)
+					no_dash = re.sub('-', ' ', name)
+					if ('Baye-Moussa' or 'Arnaud-William') in name:
+						player_names.append(no_dash)
+					else:
+						player_names.append(name)
 					print player_names[player_count], player_ppg[player_count], player_rpg[player_count], player_apg[player_count], player_spg[player_count], player_bpg[player_count], player_tpg[player_count], player_fgp[player_count], player_ftp[player_count], player_tpp[player_count]
 					player_data, created = Player.objects.get_or_create(name= player_names[player_count]) 
 					player_data.team = Team.objects.get(name=team_names[team_count])

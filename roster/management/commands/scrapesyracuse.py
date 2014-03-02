@@ -8,7 +8,7 @@ import re
 
 class Command(BaseCommand):
 	args = '<url>'
-	help = 'Parses and imports player info from the unc athletic department website'
+	help = 'Parses and imports player info from the syracuse athletic department website'
 
 	def handle(self, *args, **options):
 		try:
@@ -16,8 +16,9 @@ class Command(BaseCommand):
 
 
 			#use code below when file to import is on web server
-			response = urllib2.urlopen("http://www.clemsontigers.com/SportSelect.dbml?SPID=103715&SPSID=657840")
-			html = response.read()
+			headers = { 'User-Agent' : 'Mozilla/5.0' }
+			req = urllib2.Request('http://www.cuse.com/roster.aspx?path=mbasket', None, headers)
+			html = urllib2.urlopen(req).read()
 
 			#end server version
 
@@ -31,7 +32,7 @@ class Command(BaseCommand):
 
 			soup = BeautifulSoup(html)
 
-			tabledata = soup.find('div', {'class': 'contents'}).find('table') #find the proper table
+			tabledata = soup.find('table', {'class': 'roster_dgrd'}) #find the proper table
 			player_names = [] #list to store every player in the table
 			player_links = []
 			player_count = 0
@@ -43,11 +44,29 @@ class Command(BaseCommand):
 			player_weights = []
 			player_class_years = []
 			player_numbers = []
-			team = 'Clemson'
+			team = 'Syracuse'
 
-			for link in tabledata.select('td.showPopup > a'):
+			current_team = Team.objects.get(name=team)
+			current_team.twitter = 'SyracuseMBB'
+			current_team.color = '#FF5A00'
+			current_team.save()
+
+
+			for link in tabledata.find_all('a'):
 				player_links.append(link.get('href'))
-				player_names.append(link.get('title'))
+				# print link.get('href')
+				player_names.append(link.get_text())
+				name = link.get_text()
+
+			for number in tabledata.find_all('td', {'class': 'roster_dgrd_no'}):
+				player_numbers.append(number.get_text().strip())
+
+			for height in tabledata.find_all('td', {'class': 'roster_dgrd_height'}):
+				player_heights.append(height.get_text())
+
+			for weight in tabledata.find_all('td', {'class': 'roster_dgrd_rp_weight'}):
+				player_weights.append(weight.get_text())
+
 			
 			# for number in tabledata.select('td.odd')[0]:
 				# number = oddrow[0::0]
@@ -57,40 +76,29 @@ class Command(BaseCommand):
 
 			for player_link, val in enumerate(player_links):
 				# print team_link, val, team_count
-				response = urllib2.urlopen('http://clemsontigers.com%s' % (val), val)
-				html = response.read()
-				soup = BeautifulSoup(html, 'html.parser')
+				headers = { 'User-Agent' : 'Mozilla/5.0' }
+				req = urllib2.Request('http://www.cuse.com%s' % (val), None, headers)
+				html = urllib2.urlopen(req).read()
 
-				playerdata = soup.find('td', {'id': 'PlayerBioContent'}).find('table')
+				soup = BeautifulSoup(html)
 
-				name = soup.find('div', {'id': 'PlayerBioName'})
-				number = re.sub("[^0-9]", "", name.text.strip())
-				player_numbers.append(number)
+				playerdata = soup.find('table')
 
-				for portrait in soup.select('#PlayerBioImageContainer > img'):
-					player_portraits.append(portrait.get('src'))
+				position = playerdata.find(text='Position:').next.next
+				player_positions.append(position.text.strip())
 
-				for position in playerdata.find_all('td', {'class': 'PlayerBioPosValue'})[0]:
-					player_positions.append(position.strip())
+				hometown = playerdata.find(text='Hometown:').next.next
+				player_hometowns.append(hometown.text.strip())
 
-				for height in playerdata.find_all('td', {'class': 'PlayerBioPosValue'})[1]:
-					player_heights.append(height.strip())
+				highschool = playerdata.find(text='High School:').next.next
+				player_highschools.append(highschool.text.strip())
 
-				for weight in playerdata.find_all('td', {'class': 'PlayerBioPosValue'})[2]:
-					player_weights.append(weight.strip())
+				portrait = playerdata.find('img')
+				player_portraits.append('http://www.cuse.com%s' % (portrait.get('src')))
 
-				for class_year in playerdata.find_all('td', {'class': 'PlayerBioPosValue'})[3]:
-					player_class_years.append(class_year.strip())
+				class_year = playerdata.find(text='Class:').next.next
+				player_class_years.append(class_year.text.strip())
 
-				for hometown in playerdata.find_all('td', {'class': 'PlayerBioPosValue'})[4]:
-					player_hometowns.append(hometown.strip())
-
-				for highschool in playerdata.find_all('td', {'class': 'PlayerBioPosValue'})[5]:
-					player_highschools.append(highschool.strip())
-
-				# print player_numbers[player_count], player_names[player_count], player_positions[player_count], player_highschools[player_count]
-				# print player_count, player_names[player_count]
-				# print player_names[player_count]
 				current_player, created = Player.objects.get_or_create(name= player_names[player_count])
 				print 'Name:', current_player.name
 
@@ -126,4 +134,4 @@ class Command(BaseCommand):
 		except Team.DoesNotExist:
 			raise CommandError('Didn\'t work')
 
-		self.stdout.write('end of playerscrape.py')
+		self.stdout.write('end of scrapesyracuse.py')
