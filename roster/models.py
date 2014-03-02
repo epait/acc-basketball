@@ -45,7 +45,7 @@ class Player(models.Model):
 		ordering = ('team','name', 'position')
 
 	def __unicode__(self):
-		return U'%s, %s | %s' %(self.name, self.position, self.team)
+		return U'%s' %(self.name)
 
 
 # class Coach(models.Model):
@@ -82,12 +82,13 @@ class SeasonStats(models.Model):
 	class Meta(object):
 		verbose_name = 'Season Stats' 
 		verbose_name_plural = 'Season Stats' 
+		ordering = ('player', 'team')
 
 	def __unicode__(self):
 		if self.team == None:
-			return U'(%s) %s' %(self.season, self.player)
+			return U'%s' %(self.player)
 		else:
-			return U'(%s) %s' %(self.season, self.team)
+			return U'%s' %(self.team)
 
 
 class Season(models.Model):

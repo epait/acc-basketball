@@ -25,12 +25,13 @@ admin.site.register(Player, PlayerAdmin)
 # admin.site.register(Coach, CoachAdmin)
 
 class SeasonAdmin(admin.ModelAdmin):
-	search_fields = ('',)
+    search_fields = ('',)
 
 admin.site.register(Season, SeasonAdmin)
 
 class SeasonStatsAdmin(admin.ModelAdmin):
-	fieldsets = (
+    list_display = ('__unicode__', 'season', 'points_per_game', 'rebounds_per_game', 'assists_per_game', 'turnovers_per_game', 'steals_per_game', 'blocks_per_game', 'field_goal_percentage', 'free_throw_percentage', 'three_point_percentage')
+    fieldsets = (
 		(None, {
 			'fields': ('season',)
 		}),
@@ -45,7 +46,7 @@ class SeasonStatsAdmin(admin.ModelAdmin):
         }),
         ('Defensive Stats', {
         	'classes': ('collapse', 'in'),
-        	'fields': ('blocks_per_game', 'steals_per_game')
+        	'fields': ('steals_per_game', 'blocks_per_game')
         }),
     )
 

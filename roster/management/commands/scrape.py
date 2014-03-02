@@ -75,6 +75,7 @@ class Command(BaseCommand):
 
 			for team_stats_link, val in enumerate(team_stats_links):
 				# print team_link, val, team_count
+				time.sleep(10)
 				response = urllib2.urlopen('http://espn.go.com%s' % (val), val)
 				html = response.read()
 				soup = BeautifulSoup(html, 'html.parser')

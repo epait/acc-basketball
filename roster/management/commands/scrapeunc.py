@@ -52,8 +52,9 @@ class Command(BaseCommand):
 				name = ' '.join(reverse_name)
 				player_names.append(name)
 
-			for number in tabledata.find_all('td', {'class': 'number'}):
-				player_numbers.append(number.text.strip(' ".?<> $%^&* '))
+			for name_string in tabledata.find_all('td', {'class': 'number'}):
+				number = name_string.text.strip()
+				player_numbers.append(number.strip('  ".?<> $%^&* '))
 
 			for player_link, val in enumerate(player_links):
 				# print team_link, val, team_count
@@ -102,7 +103,7 @@ class Command(BaseCommand):
 				print 'Hometown:', player_hometowns[player_count]
 				print 'High School:', player_highschools[player_count]
 				print ' '
-				
+
 				current_player.position = player_positions[player_count]
 				current_player.number = player_numbers[player_count]
 				current_player.portrait = player_portraits[player_count]
@@ -123,4 +124,4 @@ class Command(BaseCommand):
 		except Team.DoesNotExist:
 			raise CommandError('Didn\'t work')
 
-		self.stdout.write('end of playerscrape.py')
+		self.stdout.write('end of scrapeunc.py')

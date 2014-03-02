@@ -8,7 +8,7 @@ import re
 
 class Command(BaseCommand):
 	args = '<url>'
-	help = 'Parses and imports player info from the unc athletic department website'
+	help = 'Parses and imports player info from the duke athletic department website'
 
 	def handle(self, *args, **options):
 		try:
@@ -123,4 +123,4 @@ class Command(BaseCommand):
 		except Team.DoesNotExist:
 			raise CommandError('Didn\'t work')
 
-		self.stdout.write('end of playerscrape.py')
+		self.stdout.write('end of scrapeduke.py')
