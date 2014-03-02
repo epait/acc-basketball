@@ -8,7 +8,7 @@ import re
 
 class Command(BaseCommand):
 	args = '<url>'
-	help = 'Parses and imports player info from the unc athletic department website'
+	help = 'Parses and imports player info from the maryland athletic department website'
 
 	def handle(self, *args, **options):
 		try:
@@ -16,7 +16,7 @@ class Command(BaseCommand):
 
 
 			#use code below when file to import is on web server
-			response = urllib2.urlopen("http://www.clemsontigers.com/SportSelect.dbml?SPID=103715&SPSID=657840")
+			response = urllib2.urlopen("http://www.umterps.com/SportSelect.dbml?DB_OEM_ID=29700&SPID=120728&SPSID=716396")
 			html = response.read()
 
 			#end server version
@@ -31,7 +31,7 @@ class Command(BaseCommand):
 
 			soup = BeautifulSoup(html)
 
-			tabledata = soup.find('div', {'class': 'contents'}).find('table') #find the proper table
+			tabledata = soup.find('table') #find the proper table
 			player_names = [] #list to store every player in the table
 			player_links = []
 			player_count = 0
@@ -43,32 +43,37 @@ class Command(BaseCommand):
 			player_weights = []
 			player_class_years = []
 			player_numbers = []
-			team = 'Clemson'
+			team = 'Maryland'
 
-			for link in tabledata.select('td.showPopup > a'):
+			current_team = Team.objects.get(name=team)
+			current_team.twitter = 'TerrapinHoops'
+			current_team.color = '#C8102E'
+
+			for link in tabledata.select('.showPopup > a'):
 				player_links.append(link.get('href'))
-				player_names.append(link.get('title'))
-			
-			# for number in tabledata.select('td.odd')[0]:
-				# number = oddrow[0::0]
-				# player_numbers.append(number.strip())
-			
-			# print player_numbers
+				name_list = link.text.replace(',', '').split(' ')
+				reverse_places = len(name_list) - 1
+				reverse_name = name_list[::-reverse_places]
+				name = ' '.join(reverse_name)
+				player_names.append(name)
 
 			for player_link, val in enumerate(player_links):
 				# print team_link, val, team_count
-				response = urllib2.urlopen('http://clemsontigers.com%s' % (val), val)
+				response = urllib2.urlopen('http://umterps.com%s' % (val), val)
 				html = response.read()
 				soup = BeautifulSoup(html, 'html.parser')
 
-				playerdata = soup.find('td', {'id': 'PlayerBioContent'}).find('table')
+				playerdata = soup.find('table')
 
-				name = soup.find('div', {'id': 'PlayerBioName'})
-				number = re.sub("[^0-9]", "", name.text.strip())
-				player_numbers.append(number)
+				# for name in soup.find_all('span', {'class': 'whiteBox'}):
+				# 	player_names.append(name.next.next.strip())
 
 				for portrait in soup.select('#PlayerBioImageContainer > img'):
 					player_portraits.append(portrait.get('src'))
+
+				for name_string in playerdata.find_all('div', {'id': 'PlayerBioName'}):
+					number = re.sub("[^0-9]", "", name_string.text.strip())
+					player_numbers.append(number)
 
 				for position in playerdata.find_all('td', {'class': 'PlayerBioPosValue'})[0]:
 					player_positions.append(position.strip())
@@ -88,13 +93,12 @@ class Command(BaseCommand):
 				for highschool in playerdata.find_all('td', {'class': 'PlayerBioPosValue'})[5]:
 					player_highschools.append(highschool.strip())
 
+
 				# print player_numbers[player_count], player_names[player_count], player_positions[player_count], player_highschools[player_count]
 				# print player_count, player_names[player_count]
 				# print player_names[player_count]
-				current_player, created = Player.objects.get_or_create(name= player_names[player_count])
+				current_player = Player.objects.get(name__contains= player_names[player_count])
 				print 'Name:', current_player.name
-
-				# print 'Name:', player_names[player_count]
 				print 'Portrait:', player_portraits[player_count]
 				print 'Number:', player_numbers[player_count]
 				print 'Position:', player_positions[player_count]
@@ -126,4 +130,4 @@ class Command(BaseCommand):
 		except Team.DoesNotExist:
 			raise CommandError('Didn\'t work')
 
-		self.stdout.write('end of playerscrape.py')
+		self.stdout.write('end of scrapemaryland.py')

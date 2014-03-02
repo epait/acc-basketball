@@ -45,6 +45,10 @@ class Command(BaseCommand):
 			player_numbers = []
 			team = 'Florida State'
 
+			current_team = Team.objects.get(name=team)
+			current_team.twitter = 'FSU_MBasketball'
+			current_team.color = '#862633'
+
 
 			for link in tabledata.find_all('a'):
 				player_links.append(link.get('href'))

@@ -43,6 +43,11 @@ class Command(BaseCommand):
 			player_weights = []
 			player_class_years = []
 			player_numbers = []
+			team = 'Duke'
+
+			current_team = Team.objects.get(name=team)
+			current_team.twitter = 'Duke_MBB'
+			current_team.color = '#001A57'
 
 			for link in tabledata.select('td.showPopup > a'):
 				player_links.append(link.get('href'))

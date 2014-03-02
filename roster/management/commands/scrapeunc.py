@@ -43,6 +43,11 @@ class Command(BaseCommand):
 			player_weights = []
 			player_class_years = []
 			player_numbers = []
+			team = 'North Carolina'
+
+			current_team = Team.objects.get(name=team)
+			current_team.twitter = 'UNC_Basketball'
+			current_team.color = '#56A0D3'
 
 			for link in tabledata.find_all('a'):
 				player_links.append(link.get('href'))

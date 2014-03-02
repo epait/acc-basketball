@@ -45,6 +45,10 @@ class Command(BaseCommand):
 			player_numbers = []
 			team = 'Clemson'
 
+			current_team = Team.objects.get(name=team)
+			current_team.twitter = 'ClemsonMBB'
+			current_team.color = '#EA6A20'
+
 			for link in tabledata.select('td.showPopup > a'):
 				player_links.append(link.get('href'))
 				player_names.append(link.get('title'))
