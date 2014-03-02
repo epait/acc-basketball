@@ -1,0 +1,85 @@
+/*Header*/
+.header {
+	background-color: #004A87;
+	color: #fff;
+	height: 60px;
+}
+
+#site-logo {
+	float: left;
+	height: 50px;
+	margin: 4px 10px 0 5px;
+	padding: 2px;
+}
+
+#site-title {
+	font-size: 32px;
+	font-weight: bold;
+	padding: 7px 0 0 15px;
+}
+
+
+
+/*Home Page*/
+
+
+
+/*Team Page*/
+.player-grid {
+	margin-top: 10px;
+}
+.player-grid-portrait {
+	float: left;
+	height: 100px;
+	margin: 5px;
+}
+
+.team-header {
+	margin-top: 15px;
+	padding: 10px;
+	/*height: 40px;*/
+}
+
+.team-logo {
+	float: left;
+	height: 60px;
+	margin: 5px 20px 5px 0;
+}
+
+.team-name {
+	font-size: 24px;
+}
+
+.team-portrait {
+	margin: 15px 0 0 15px;
+}
+
+
+
+
+/*Player Page*/
+
+.player-name {
+	font-size: 24px;
+}
+
+.player-portrait {
+	float:left;
+	padding: 0 15px 0 0;
+}
+
+.player-head {
+	padding: 15px;
+}
+
+
+
+/*Mobile Styles*/
+@media (max-width: 767px) {
+	.team-header {
+		padding-left: 0;
+	}
+	.team-portrait {
+		margin: 10px 0;
+	}
+}

@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% load humanize %}
+
+{% block title %}{{ player.name }}{% endblock %}
+{% block head_info %}
+	<style>
+		.team-name {
+			color: {{  player.team.color }};
+		}
+	</style>
+{% endblock %}
+
+{% block content %}
+<div class="row">
+	<div class="col-sm-12">
+		<div class="team-header">
+			<img class="team-logo" src="{{ MEDIA_URL }}{{ player.team.logo }}" />
+			<span class="team-name">{{ player.team.name }}</span>
+			<p>({{ player.team.overall_record }}, {{ player.team.conference_record }} {{ player.team.conference }})</p>
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col-sm-12">
+		<div class="player-head">
+			<img class="player-portrait" src="{{ player.portrait }}" />
+			<div class="player-title">
+				<span class="player-name">#{{ player.number }} {{ player.name }}</span>
+				<br />
+				{{ player.position }}
+			</div>
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col-sm-6">
+		<ul>
+			<li><b>Year:</b> {{ player.class_year }}</li>
+			<li><b>Height:</b> {{ player.height }}</li>
+			<li><b>Weight:</b> {{ player.weight }}</li>
+			<li><b>Hometown:</b> {{ player.hometown }}</li>
+			<li><b>Highschool:</b> {{ player.highschool }}</li>
+		</ul>
+	</div>
+	<div class="col-sm-6">
+		<ul>
+			<li><b>Offense Stats</b></li>
+			<li>PPG: {{ stats.points_per_game }}</li>
+			<li>RPG: {{ stats.rebounds_per_game }}</li>
+			<li>APG: {{ stats.assists_per_game }}</li>
+			<li>TPG: {{ stats.turnovers_per_game }}</li>
+		</ul>
+		<ul>
+			<li><b>Defensive Stats</b></li>
+			<li>SPG: {{ stats.steals_per_game }}</li>
+			<li>BPG: {{ stats.blocks_per_game }}</li>
+		</ul>
+		<ul>
+			<li><b>Shooting Percentages</b></li>
+			<li>FG%: {{ stats.field_goal_percentage }}</li>
+			<li>FT%: {{ stats.free_throw_percentage }}</li>
+			<li>3P%: {{ stats.three_point_percentage }}</li>
+		</ul>
+	</div>
+</div>
+<a href="team{{ player.team.id }}">Back to {{ player.team }}</a>
+{% endblock %}

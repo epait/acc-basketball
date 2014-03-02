@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django_admin_bootstrapped.admin.models import SortableInline
-from roster.models import Team, Player, Season, SeasonStats#, Coach
+from roster.models import Team, Player, Season, SeasonStats
 
 # Register your models here.
 

@@ -4,11 +4,11 @@ from django.db import models
  
 class Team(models.Model):
 	name = models.CharField(null=True, unique=True, max_length=100, verbose_name='Team')
- 	abbreviation = models.CharField(null=True, max_length=4)
+ 	abbreviation = models.CharField(blank=True, null=True, max_length=4)
 	overall_record = models.CharField(null=True, max_length=5)
 	conference = models.CharField(null=True, max_length=50)
 	conference_record = models.CharField(null=True, max_length=5)
-	portrait = models.ImageField(null=True, upload_to='portraits/teams/', height_field=None, width_field=None, max_length=200)
+	portrait = models.ImageField(blank=True, null=True, upload_to='portraits/teams/', height_field=None, width_field=None, max_length=200)
 	color = models.CharField(null=True, max_length=7)
 	twitter = models.CharField(null=True, max_length=30)
 	logo = models.ImageField(null=True, upload_to='logos/', height_field=None, width_field=None, max_length=200)
@@ -49,22 +49,6 @@ class Player(models.Model):
 	def __unicode__(self):
 		return U'%s' %(self.name)
 
-
-# class Coach(models.Model):
-# 	name = models.CharField(null=True, max_length=75)
-# 	team = models.ForeignKey('Team', null=True)
-# 	position = models.CharField(null=True, max_length=25)
-# 	bio = models.TextField(null=True, )
-# 	hometown = models.CharField(null=True, max_length=150, help_text='Please use the following format: <em>City, State</em>.')
-# 	experience = models.IntegerField(null=True, max_length=3)
-# 	portrait = models.ImageField(null=True, upload_to='portraits/coaches/', height_field=None, width_field=None, max_length=200)
-
-# 	class Meta(object):
-# 		verbose_name_plural = 'Coaches' 
-# 		ordering = ('position','name')
-
-# 	def __unicode__(self):
-# 		return U'%s, %s' %(self.name, self.position)
 
 
 class SeasonStats(models.Model):

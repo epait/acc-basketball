@@ -1,0 +1,26 @@
+<!-- project template: /templates/base.html -->
+<!DOCTYPE html>
+
+<html>
+<head>
+	<title>{% block title %}ACC Basketball Roster{% endblock %}</title>
+	<link href="{{ STATIC_URL }}css/bootstrap.min.css" rel="stylesheet">
+	<link href="{{ STATIC_URL }}css/app.css" rel="stylesheet">
+	{% block head_info %}{% endblock %}
+</head>
+
+<body>
+	<div class="header">
+		<img id="site-logo" src="{{ MEDIA_URL }}icons/basketball.svg" />
+		<div id="site-title">ACC Hoops</div>
+	</div>
+	<div class="container">
+		{% block content %}{% endblock %}
+	</div>
+
+	<script src="{{ STATIC_URL }}js/jquery-1.10.1.min.js"></script>
+	<script src="{{ STATIC_URL }}js/bootstrap.min.js"></script>
+	<script src="{{ STATIC_URL }}js/app.js"></script>
+
+</body>
+</html>
