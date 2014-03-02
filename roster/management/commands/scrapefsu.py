@@ -48,6 +48,7 @@ class Command(BaseCommand):
 			current_team = Team.objects.get(name=team)
 			current_team.twitter = 'FSU_MBasketball'
 			current_team.color = '#862633'
+			current_team.save()
 
 
 			for link in tabledata.find_all('a'):

@@ -48,6 +48,7 @@ class Command(BaseCommand):
 			current_team = Team.objects.get(name=team)
 			current_team.twitter = 'TerrapinHoops'
 			current_team.color = '#C8102E'
+			current_team.save()
 
 			for link in tabledata.select('.showPopup > a'):
 				player_links.append(link.get('href'))
@@ -97,7 +98,7 @@ class Command(BaseCommand):
 				# print player_numbers[player_count], player_names[player_count], player_positions[player_count], player_highschools[player_count]
 				# print player_count, player_names[player_count]
 				# print player_names[player_count]
-				current_player = Player.objects.get(name__contains= player_names[player_count])
+				current_player, created = Player.objects.get_or_create(name= player_names[player_count])
 				print 'Name:', current_player.name
 				print 'Portrait:', player_portraits[player_count]
 				print 'Number:', player_numbers[player_count]

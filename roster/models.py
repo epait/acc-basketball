@@ -11,7 +11,7 @@ class Team(models.Model):
 	portrait = models.ImageField(null=True, upload_to='portraits/teams/', height_field=None, width_field=None, max_length=200)
 	color = models.CharField(null=True, max_length=7)
 	twitter = models.CharField(null=True, max_length=30)
-	logos = models.ImageField(null=True, upload_to='logos/', height_field=None, width_field=None, max_length=200)
+	logo = models.ImageField(null=True, upload_to='logos/', height_field=None, width_field=None, max_length=200)
 
 	class Meta(object):
 		ordering = ('name', 'conference')

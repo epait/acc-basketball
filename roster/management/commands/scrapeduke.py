@@ -48,6 +48,7 @@ class Command(BaseCommand):
 			current_team = Team.objects.get(name=team)
 			current_team.twitter = 'Duke_MBB'
 			current_team.color = '#001A57'
+			current_team.save()
 
 			for link in tabledata.select('td.showPopup > a'):
 				player_links.append(link.get('href'))
