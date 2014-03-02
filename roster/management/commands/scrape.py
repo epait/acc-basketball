@@ -180,7 +180,7 @@ class Command(BaseCommand):
 					player_ftp.append(soup.find(text=name).next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.text)
 					player_tpp.append(soup.find(text=name).next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.text)
 					no_dash = re.sub('-', ' ', name)
-					if ('Baye-Moussa' or 'Arnaud-William') in name:
+					if 'Baye-Moussa' or 'Arnaud-William' in name:
 						player_names.append(no_dash)
 					else:
 						player_names.append(name)

@@ -52,11 +52,17 @@ class Command(BaseCommand):
 
 			for link in tabledata.select('.evenrow a'):
 				player_links.append(link.get('href'))
-				player_names.append(link.get_text())
+				if link.get_text() == 'Joey van Zegeren':
+					player_names.append('Joey Van Zegeren')
+				else:
+					player_names.append(link.get_text())
 
 			for link in tabledata.select('.oddrow a'):
 				player_links.append(link.get('href'))
-				player_names.append(link.get_text())
+				if link.get_text() == 'Joey van Zegeren':
+					player_names.append('Joey Van Zegeren')
+				else:
+					player_names.append(link.get_text())
 
 			for player_link, val in enumerate(player_links):
 				# print team_link, val, team_count
@@ -113,6 +119,7 @@ class Command(BaseCommand):
 				print 'High School:', player_highschools[player_count]
 				print ' '
 
+				current_player.team = Team.objects.get(name=team)
 				current_player.position = player_positions[player_count]
 				current_player.number = player_numbers[player_count]
 				current_player.portrait = player_portraits[player_count]
