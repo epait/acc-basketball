@@ -63,15 +63,15 @@ class Command(BaseCommand):
 
 				playerdata = soup.find('table')
 
-				name = soup.find('div', {'class': 'player-name'})
-				number = re.sub("[^0-9]", "", name.text.strip())
+				number = soup.find('div', {'class': 'player-number'}).get_text()
 				player_numbers.append(number)
 
-				portrait = soup.find('img', {'id': 'player-photo'})
+				portrait = soup.find('img', {'alt': player_names[player_count]})
 				player_portraits.append(portrait.get('src'))
 
 				class_year = soup.find(text='Class:').next.next
-				player_class_years.append(class_year.strip())
+				redshirt_replace = re.sub('RS', 'Redshirt', class_year.strip())
+				player_class_years.append(redshirt_replace)
 
 				highschool = soup.find(text='High School:').next.next
 				player_highschools.append(highschool.strip())
@@ -79,27 +79,7 @@ class Command(BaseCommand):
 				hometown = soup.find(text='Hometown:').next.next
 				player_hometowns.append(hometown.strip())
 
-				# for position in playerdata.find_all('td', {'class': 'PlayerBioPosValue'})[0]:
-				# 	player_positions.append(position.strip())
 
-				# for height in playerdata.find_all('td', {'class': 'PlayerBioPosValue'})[1]:
-				# 	player_heights.append(height.strip())
-
-				# for weight in playerdata.find_all('td', {'class': 'PlayerBioPosValue'})[2]:
-				# 	player_weights.append(weight.strip())
-
-				# for class_year in playerdata.find_all('td', {'class': 'PlayerBioPosValue'})[3]:
-				# 	player_class_years.append(class_year.strip())
-
-				# for hometown in playerdata.find_all('td', {'class': 'PlayerBioPosValue'})[4]:
-				# 	player_hometowns.append(hometown.strip())
-
-				# for highschool in playerdata.find_all('td', {'class': 'PlayerBioPosValue'})[5]:
-				# 	player_highschools.append(highschool.strip())
-
-				# print player_numbers[player_count], player_names[player_count], player_positions[player_count], player_highschools[player_count]
-				# print player_count, player_names[player_count]
-				# print player_names[player_count]
 				current_player, created = Player.objects.get_or_create(name= player_names[player_count])
 				print 'Name:', current_player.name
 
@@ -114,17 +94,17 @@ class Command(BaseCommand):
 				print 'High School:', player_highschools[player_count]
 				print ' '
 
-				# current_player.team = Team.objects.get(name=team)
-				# current_player.position = player_positions[player_count]
-				# current_player.number = player_numbers[player_count]
-				# current_player.portrait = player_portraits[player_count]
-				# current_player.height = player_heights[player_count]
-				# current_player.weight = player_weights[player_count]
-				# current_player.class_year = player_class_years[player_count]
-				# current_player.hometown = player_hometowns[player_count]
-				# current_player.highschool = player_highschools[player_count]
-				# current_player.class_year = player_class_years[player_count]
-				# current_player.save()
+				current_player.team = Team.objects.get(name=team)
+				current_player.position = player_positions[player_count]
+				current_player.number = player_numbers[player_count]
+				current_player.portrait = player_portraits[player_count]
+				current_player.height = player_heights[player_count]
+				current_player.weight = player_weights[player_count]
+				current_player.class_year = player_class_years[player_count]
+				current_player.hometown = player_hometowns[player_count]
+				current_player.highschool = player_highschools[player_count]
+				current_player.class_year = player_class_years[player_count]
+				current_player.save()
 
 				player_count += 1
 
