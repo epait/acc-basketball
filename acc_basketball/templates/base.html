@@ -11,8 +11,8 @@
 
 <body>
 	<div class="header">
-		<img id="site-logo" src="{{ MEDIA_URL }}icons/basketball.svg" />
-		<div id="site-title">ACC Hoops</div>
+		<a href="{% url 'roster_home' %}"><img id="site-logo" src="{{ MEDIA_URL }}icons/basketball.svg" />
+		<div id="site-title">ACC Hoops</div></a>
 	</div>
 	<div class="container">
 		{% block content %}{% endblock %}

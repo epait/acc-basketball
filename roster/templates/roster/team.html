@@ -4,7 +4,7 @@
 {% block title %}{{ team.name }}{% endblock %}
 {% block head_info %}
 	<style>
-		.team-name {
+		.team-name, h3 {
 			color: {{  team.color }};
 		}
 	</style>
@@ -23,33 +23,26 @@
 <div class="row">
 	<div class="col-sm-8">
 		<img class="team-portrait img-responsive" src="{{ MEDIA_URL }}{{ team.portrait }}" />
-		<ul>
-			<li><b>Offense Stats</b></li>
-			<li>PPG: {{ stats.points_per_game }}</li>
-			<li>RPG: {{ stats.rebounds_per_game }}</li>
-			<li>APG: {{ stats.assists_per_game }}</li>
-			<li>TPG: {{ stats.turnovers_per_game }}</li>
-		</ul>
-		<ul>
-			<li><b>Defensive Stats</b></li>
-			<li>SPG: {{ stats.steals_per_game }}</li>
-			<li>BPG: {{ stats.blocks_per_game }}</li>
-		</ul>
-		<ul>
-			<li><b>Shooting Percentages</b></li>
-			<li>FG%: {{ stats.field_goal_percentage }}</li>
-			<li>FT%: {{ stats.free_throw_percentage }}</li>
-			<li>3P%: {{ stats.three_point_percentage }}</li>
-		</ul>
-	</div>
-	<div class="col-sm-4">
 		<div class="player-grid">
+		<h3>Players</h3>
 		{% for player in players %}
 			{% if player.position != None %}
 				<a href="player{{ player.id }}"><img src="{{ player.portrait }}" title="{{ player.name }}" class="player-grid-portrait"/></a>
 			{% endif %}
 		{% endfor %}
 		</div>
+	</div>
+	<div class="col-sm-4">
+		<h3>{{ stats.season }} Stats</h3>
+		<div class="stat">PPG: {{ stats.points_per_game }}</div>
+		<div class="stat">RPG: {{ stats.rebounds_per_game }}</div>
+		<div class="stat">APG: {{ stats.assists_per_game }}</div>
+		<div class="stat">TPG: {{ stats.turnovers_per_game }}</div>
+		<div class="stat">SPG: {{ stats.steals_per_game }}</div>
+		<div class="stat">BPG: {{ stats.blocks_per_game }}</div>
+		<div class="stat">FG%: {{ stats.field_goal_percentage }}</div>
+		<div class="stat">FT%: {{ stats.free_throw_percentage }}</div>
+		<div class="stat">3P%: {{ stats.three_point_percentage }}</div>		
 	</div>
 </div>
 <a href="{% url 'roster_home' %}">Back to teams</a>

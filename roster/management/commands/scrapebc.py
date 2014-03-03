@@ -47,7 +47,7 @@ class Command(BaseCommand):
 
 			current_team = Team.objects.get(name=team)
 			current_team.twitter = 'BCHoopsNews'
-			current_team.color = '#430000'
+			current_team.color = '#990000'
 			current_team.save()
 
 

@@ -3,11 +3,25 @@
 
 
 {% block content %}
-<h2>All Teams</h2>
-<ul>
-{% for team in teams %}
-	<li><a href="team{{ team.id }}">{{ team.name }}</a></li>
-{% endfor %}
-</ul>
+
+<div class="row">
+	<div class="col-sm-12">
+		<h2>Select A Team</h2>
+		<div class="teams-wrapper">
+		{% for team in teams %}
+			<div class="home-team">
+				<a href="team{{ team.id }}" style="color:{{ team.color }};">
+					<img class="home-team-logo" src="{{ MEDIA_URL }}{{ team.logo }}" />
+					<p>
+						{{ team.name }}
+						<br />
+						({{ team.overall_record }}, {{ team.conference_record }} {{ team.conference }})
+					</p>
+				</a>
+			</div>
+		{% endfor %}
+		</div>
+	</div>
+</div>
 
 {% endblock %}
