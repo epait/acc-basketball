@@ -36,3 +36,7 @@ nosetests.xml
 .pydevproject
 
 /media_root/
+
+venv
+.pyc
+staticfiles
