@@ -13,7 +13,8 @@ def team(request, pk):
 	context = {
 		'team': get_object_or_404(Team, id=pk),
 		'stats': SeasonStats.objects.get(team=get_object_or_404(Team, id=pk)),
-		'players': Player.objects.filter(team=get_object_or_404(Team, id=pk))
+		'players': Player.objects.filter(team=get_object_or_404(Team, id=pk)),
+		'teams': Team.objects.all()
 	}
 	return render(request, "roster/team.html", context)
 
@@ -21,5 +22,6 @@ def player(request, pk):
 	context = {
 		'player': get_object_or_404(Player, id=pk),
 		'stats': SeasonStats.objects.get(player=get_object_or_404(Player, id=pk)),
+		'teams': Team.objects.all()
 	}
 	return render(request, "roster/player.html", context)

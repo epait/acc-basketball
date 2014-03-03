@@ -5,22 +5,32 @@
 <head>
 	<title>{% block title %}ACC Basketball Roster{% endblock %}</title>
 	<link href="{{ STATIC_URL }}css/bootstrap.min.css" rel="stylesheet">
+	<link href="{{ STATIC_URL }}css/font-awesome.min.css" rel="stylesheet">
 	<link href="{{ STATIC_URL }}css/app.css" rel="stylesheet">
 	{% block head_info %}{% endblock %}
 </head>
 
 <body>
 	<div class="header">
-		<a href="{% url 'roster_home' %}"><img id="site-logo" src="{{ MEDIA_URL }}icons/basketball.svg" />
-		<div id="site-title">ACC Hoops</div></a>
+		<a class="home-link" href="{% url 'roster_home' %}"><img id="site-logo" src="{{ MEDIA_URL }}icons/basketball.svg" /></a>
+		<div id="site-title"><a class="home-link" href="{% url 'roster_home' %}">ACC Hoops</a></div>
+		<div id="menu-toggle" onClick="expandNav()">
+			<i class="fa fa-bars"></i>
+			<ul id="menu-popout">
+			{% for team in teams %}
+				<a href="team{{ team.id }}"><li><img class="menu-icon" src="{{ MEDIA_URL }}{{ team.logo }}"> {{ team.name }}</li></a>
+			{% endfor %}
+			</ul>
+		</div>
 	</div>
 	<div class="container">
 		{% block content %}{% endblock %}
 	</div>
 
 	<script src="{{ STATIC_URL }}js/jquery-1.10.1.min.js"></script>
+	<script src="{{ STATIC_URL }}js/jquery-ui.min.js"></script>
+	<script src="{{ STATIC_URL }}js/jgestures.min.js"></script>
 	<script src="{{ STATIC_URL }}js/bootstrap.min.js"></script>
 	<script src="{{ STATIC_URL }}js/app.js"></script>
-
 </body>
 </html>
