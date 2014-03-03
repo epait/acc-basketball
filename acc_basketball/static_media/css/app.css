@@ -1,4 +1,4 @@
-/*Header*/
+/*Global*/
 html, body {
 	height: 100%;
 	margin: 0;
@@ -13,6 +13,25 @@ h3 {
 	padding: 0;
 	margin: 10px 0;
 }
+.tooltip-name {
+	font-size: 14px;
+	font-weight: bold;
+}
+.tooltip-content {
+	font-size: 12px;
+	line-height: 16px;
+	margin-top: 5px;
+}
+.qtip-content {
+	background-color: #fff;
+}
+.qtip {
+	border-color: #000;
+}
+
+
+
+/*Header*/
 .container {
 	padding-bottom: 30px;
 	margin-top: 60px;

@@ -33,7 +33,7 @@
 		<h3>Players</h3>
 		{% for player in players %}
 			{% if player.position != None %}
-				<a href="player{{ player.id }}"><img src="{{ player.portrait }}" title="{{ player.name }}" class="player-grid-portrait"/></a>
+				<a href="player{{ player.id }}"><img src="{{ player.portrait }}" title="<div class='tooltip-name'>#{{ player.number }} {{ player.name }}</div><div class='tooltip-content'><i>Position:</i> {{ player.position }}<br /><i>Year:</i> {{ player.class_year }}</div>" class="player-grid-portrait"/></a>
 			{% endif %}
 		{% endfor %}
 		</div>
