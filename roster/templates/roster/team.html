@@ -4,8 +4,14 @@
 {% block title %}{{ team.name }}{% endblock %}
 {% block head_info %}
 	<style>
-		.team-name, h3 {
+		.team-name, h3, .stat-number, a.return-link, a.return-link:hover {
 			color: {{  team.color }};
+		}
+		.stat {
+			border: 2px solid {{ team.color }};
+		}
+		.stat p {
+			background-color: {{ team.color }};
 		}
 	</style>
 {% endblock %}
@@ -34,17 +40,45 @@
 	</div>
 	<div class="col-sm-4">
 		<h3>{{ stats.season }} Stats</h3>
-		<div class="stat">PPG: {{ stats.points_per_game }}</div>
-		<div class="stat">RPG: {{ stats.rebounds_per_game }}</div>
-		<div class="stat">APG: {{ stats.assists_per_game }}</div>
-		<div class="stat">TPG: {{ stats.turnovers_per_game }}</div>
-		<div class="stat">SPG: {{ stats.steals_per_game }}</div>
-		<div class="stat">BPG: {{ stats.blocks_per_game }}</div>
-		<div class="stat">FG%: {{ stats.field_goal_percentage }}</div>
-		<div class="stat">FT%: {{ stats.free_throw_percentage }}</div>
-		<div class="stat">3P%: {{ stats.three_point_percentage }}</div>		
+		<div class="stat" title="Points Per Game">
+			<p>PPG</p>
+			<span class="stat-number">{{ stats.points_per_game }}</span>
+		</div>
+		<div class="stat" title="Rebound Per Game">
+			<p>RPG</p>
+			<span class="stat-number">{{ stats.rebounds_per_game }}</span>
+		</div>
+		<div class="stat" title="Assists Per Game">
+			<p>APG</p>
+			<span class="stat-number">{{ stats.assists_per_game }}</span>
+		</div>
+		<div class="stat" title="Turnovers Per Game">
+			<p>TPG</p>
+			<span class="stat-number">{{ stats.turnovers_per_game }}</span>
+		</div>
+		<div class="stat" title="Steals Per Game">
+			<p>SPG</p>
+			<span class="stat-number">{{ stats.steals_per_game }}</span>
+		</div>
+		<div class="stat" title="Blocks Per Game">
+			<p>BPG</p>
+			<span class="stat-number">{{ stats.blocks_per_game }}</span>
+		</div>
+		<div class="stat" title="Field Goal Percentage">
+			<p>FG%</p>
+			<span class="stat-number">{{ stats.field_goal_percentage }}</span>
+		</div>
+		<div class="stat" title="Free Throw Percentage">
+			<p>FT%</p>
+			<span class="stat-number">{{ stats.free_throw_percentage }}</span>
+		</div>
+		<div class="stat" title="Three Point Percentage">
+			<p>3P%</p>
+			<span class="stat-number">{{ stats.three_point_percentage }}</span>
+		</div>		
 	</div>
 </div>
-<a href="{% url 'roster_home' %}">Back to teams</a>
+<br />
+<a class="return-link" href="{% url 'roster_home' %}">Return to Teams</a>
 
 {% endblock %}

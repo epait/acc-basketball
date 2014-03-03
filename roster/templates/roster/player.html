@@ -4,8 +4,14 @@
 {% block title %}{{ player.name }}{% endblock %}
 {% block head_info %}
 	<style>
-		.team-name {
+		.team-name, h3, .stat-number, a.return-link, a.return-link:hover {
 			color: {{  player.team.color }};
+		}
+		.stat {
+			border: 2px solid {{ player.team.color }};
+		}
+		.stat p {
+			background-color: {{ player.team.color }};
 		}
 	</style>
 {% endblock %}
@@ -21,47 +27,67 @@
 	</div>
 </div>
 <div class="row">
-	<div class="col-sm-12">
+	<div class="col-md-6 col-sm-7">
 		<div class="player-head">
 			<img class="player-portrait" src="{{ player.portrait }}" />
 			<div class="player-title">
-				<span class="player-name">#{{ player.number }} {{ player.name }}</span>
-				<br />
-				{{ player.position }}
+				<span class="player-name">#{{ player.number }} {{ player.name }}</span>	
+				<br />			
+				<ul>
+					<li><b>Position:</b> {{ player.position }}</li>
+					<li><b>Height:</b> {{ player.height }}</li>
+					<li><b>Weight:</b> {{ player.weight }} lbs.</li>
+				</ul>
+				<ul>
+					<li><b>Class Year:</b> {{ player.class_year }}</li>
+					<li><b>Hometown:</b> {{ player.hometown }}</li>
+					<li><b>Highschool:</b> {{ player.highschool }}</li>
+				</ul>
 			</div>
 		</div>
 	</div>
-</div>
-<div class="row">
-	<div class="col-sm-6">
-		<ul>
-			<li><b>Year:</b> {{ player.class_year }}</li>
-			<li><b>Height:</b> {{ player.height }}</li>
-			<li><b>Weight:</b> {{ player.weight }}</li>
-			<li><b>Hometown:</b> {{ player.hometown }}</li>
-			<li><b>Highschool:</b> {{ player.highschool }}</li>
-		</ul>
+	<div class="col-md-6 col-sm-5">
+		<div class="player-stat-wrapper">
+			<h3>{{ stats.season }} Stats</h3>
+			<div class="stat">
+				<p>PPG</p>
+				<span class="stat-number">{{ stats.points_per_game }}</span>
+			</div>
+			<div class="stat">
+				<p>RPG</p>
+				<span class="stat-number">{{ stats.rebounds_per_game }}</span>
+			</div>
+			<div class="stat">
+				<p>APG</p>
+				<span class="stat-number">{{ stats.assists_per_game }}</span>
+			</div>
+			<div class="stat">
+				<p>TPG</p>
+				<span class="stat-number">{{ stats.turnovers_per_game }}</span>
+			</div>
+			<div class="stat">
+				<p>SPG</p>
+				<span class="stat-number">{{ stats.steals_per_game }}</span>
+			</div>
+			<div class="stat">
+				<p>BPG</p>
+				<span class="stat-number">{{ stats.blocks_per_game }}</span>
+			</div>
+			<div class="stat">
+				<p>FG%</p>
+				<span class="stat-number">{{ stats.field_goal_percentage }}</span>
+			</div>
+			<div class="stat">
+				<p>FT%</p>
+				<span class="stat-number">{{ stats.free_throw_percentage }}</span>
+			</div>
+			<div class="stat">
+				<p>3P%</p>
+				<span class="stat-number">{{ stats.three_point_percentage }}</span>
+			</div>	
+		</div>
 	</div>
-	<div class="col-sm-6">
-		<ul>
-			<li><b>Offense Stats</b></li>
-			<li>PPG: {{ stats.points_per_game }}</li>
-			<li>RPG: {{ stats.rebounds_per_game }}</li>
-			<li>APG: {{ stats.assists_per_game }}</li>
-			<li>TPG: {{ stats.turnovers_per_game }}</li>
-		</ul>
-		<ul>
-			<li><b>Defensive Stats</b></li>
-			<li>SPG: {{ stats.steals_per_game }}</li>
-			<li>BPG: {{ stats.blocks_per_game }}</li>
-		</ul>
-		<ul>
-			<li><b>Shooting Percentages</b></li>
-			<li>FG%: {{ stats.field_goal_percentage }}</li>
-			<li>FT%: {{ stats.free_throw_percentage }}</li>
-			<li>3P%: {{ stats.three_point_percentage }}</li>
-		</ul>
-	</div>
 </div>
-<a href="team{{ player.team.id }}">Back to {{ player.team }}</a>
+<br />
+<a class="return-link" href="team{{ player.team.id }}">Return to {{ player.team }} Roster</a>
 {% endblock %}

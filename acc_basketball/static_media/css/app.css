@@ -66,7 +66,7 @@ h3 {
 
 /*Team Page*/
 .player-grid {
-	margin: 25px 0 0 15px;
+	margin: 25px 0 15px 15px;
 }
 .player-grid-portrait {
 	float: left;
@@ -94,6 +94,31 @@ h3 {
 .team-portrait {
 	margin: 15px 0 0 15px;
 }
+.stat {
+	/*color: #fff;*/
+	/*display: inline-block;*/
+	border: 2px;
+	float: left;
+	height: 65px;
+	width: 60px;
+	margin: 0 10px 10px 0;
+	/*padding: 5px 10px;*/
+	text-align: center;
+}
+.stat p {
+	color: #fff;
+	margin-bottom: 5px;
+	padding: 3px;
+}
+
+.stat-number {
+	font-size: 16px;
+}
+
+.return-link {
+	font-size: 16px;
+	margin: 30px 15px;
+}
 
 
 
@@ -102,6 +127,8 @@ h3 {
 
 .player-name {
 	font-size: 24px;
+	font-weight: bold;
+	line-height: 24px;
 }
 
 .player-portrait {
@@ -112,6 +139,17 @@ h3 {
 
 .player-head {
 	padding: 15px;
+}
+.player-head ul {
+	float: left;
+	list-style-type: none;
+	margin: 0;
+	padding: 5px 15px 0 0;
+}
+.player-stat-wrapper {
+	float: left;
+	margin-left: 15px;
+	/*margin-top: 15px;*/
 }
 
 
