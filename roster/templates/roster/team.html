@@ -27,7 +27,7 @@
 	</div>
 </div>
 <div class="row">
-	<div class="col-sm-8">
+	<div class="col-md-8 col-sm-7">
 		<img class="team-portrait img-responsive" src="{{ MEDIA_URL }}{{ team.portrait }}" />
 		<div class="player-grid">
 		<h3>Players</h3>
@@ -38,43 +38,45 @@
 		{% endfor %}
 		</div>
 	</div>
-	<div class="col-sm-4">
-		<h3>{{ stats.season }} Stats</h3>
-		<div class="stat" title="Points Per Game">
-			<p>PPG</p>
-			<span class="stat-number">{{ stats.points_per_game }}</span>
-		</div>
-		<div class="stat" title="Rebound Per Game">
-			<p>RPG</p>
-			<span class="stat-number">{{ stats.rebounds_per_game }}</span>
-		</div>
-		<div class="stat" title="Assists Per Game">
-			<p>APG</p>
-			<span class="stat-number">{{ stats.assists_per_game }}</span>
-		</div>
-		<div class="stat" title="Turnovers Per Game">
-			<p>TPG</p>
-			<span class="stat-number">{{ stats.turnovers_per_game }}</span>
-		</div>
-		<div class="stat" title="Steals Per Game">
-			<p>SPG</p>
-			<span class="stat-number">{{ stats.steals_per_game }}</span>
-		</div>
-		<div class="stat" title="Blocks Per Game">
-			<p>BPG</p>
-			<span class="stat-number">{{ stats.blocks_per_game }}</span>
-		</div>
-		<div class="stat" title="Field Goal Percentage">
-			<p>FG%</p>
-			<span class="stat-number">{{ stats.field_goal_percentage }}</span>
-		</div>
-		<div class="stat" title="Free Throw Percentage">
-			<p>FT%</p>
-			<span class="stat-number">{{ stats.free_throw_percentage }}</span>
-		</div>
-		<div class="stat" title="Three Point Percentage">
-			<p>3P%</p>
-			<span class="stat-number">{{ stats.three_point_percentage }}</span>
+	<div class="col-md-4 col-sm-5">
+		<div class="player-stat-wrapper">
+			<h3>{{ stats.season }} Stats</h3>
+			<div class="stat" title="Points Per Game">
+				<p>PPG</p>
+				<span class="stat-number">{{ stats.points_per_game }}</span>
+			</div>
+			<div class="stat" title="Rebound Per Game">
+				<p>RPG</p>
+				<span class="stat-number">{{ stats.rebounds_per_game }}</span>
+			</div>
+			<div class="stat" title="Assists Per Game">
+				<p>APG</p>
+				<span class="stat-number">{{ stats.assists_per_game }}</span>
+			</div>
+			<div class="stat" title="Turnovers Per Game">
+				<p>TPG</p>
+				<span class="stat-number">{{ stats.turnovers_per_game }}</span>
+			</div>
+			<div class="stat" title="Steals Per Game">
+				<p>SPG</p>
+				<span class="stat-number">{{ stats.steals_per_game }}</span>
+			</div>
+			<div class="stat" title="Blocks Per Game">
+				<p>BPG</p>
+				<span class="stat-number">{{ stats.blocks_per_game }}</span>
+			</div>
+			<div class="stat" title="Field Goal Percentage">
+				<p>FG%</p>
+				<span class="stat-number">{{ stats.field_goal_percentage }}</span>
+			</div>
+			<div class="stat" title="Free Throw Percentage">
+				<p>FT%</p>
+				<span class="stat-number">{{ stats.free_throw_percentage }}</span>
+			</div>
+			<div class="stat" title="Three Point Percentage">
+				<p>3P%</p>
+				<span class="stat-number">{{ stats.three_point_percentage }}</span>
+			</div>
 		</div>		
 	</div>
 </div>
