@@ -60,18 +60,18 @@ a.home-link:hover {
 	top: 0;
 }
 #menu-toggle:hover {
-	background-color: #999;
+	background-color: #888888;
 	cursor: pointer;
 }
 #menu-toggle.active {
-	background-color: #999;
+	background-color: #888888;
 }
 .menu-icon {
-	height: 15px;
+	height: 20px;
 	padding-right: 10px;
 }
 #menu-popout {
-	background-color: #999;
+	background-color: #888888;
 	display: none;
 	font-size: 14px;
 	height: 100%;
