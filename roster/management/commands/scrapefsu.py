@@ -1,6 +1,6 @@
 from django.core.management.base import BaseCommand, CommandError
 from bs4 import BeautifulSoup
-from roster.models import Team, Player
+from roster.models import Team, Player, SeasonStats, Season
 
 #below imports only needed if from URL
 import urllib2
@@ -49,6 +49,7 @@ class Command(BaseCommand):
 			current_team.twitter = 'FSU_MBasketball'
 			current_team.color = '#862633'
 			current_team.save()
+
 
 
 			for link in tabledata.find_all('a'):
@@ -130,6 +131,10 @@ class Command(BaseCommand):
 				current_player.highschool = player_highschools[player_count]
 				current_player.class_year = player_class_years[player_count]
 				current_player.save()
+
+				stats_data, created = SeasonStats.objects.get_or_create(player=current_player)
+				stats_data.season = Season.objects.get(start_year=2013, end_year=2014)
+				stats_data.save()
 
 				player_count += 1
 
