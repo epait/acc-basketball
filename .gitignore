@@ -35,7 +35,6 @@ nosetests.xml
 .project
 .pydevproject
 
-/media_root/
 
 venv
 .pyc
