@@ -21,9 +21,9 @@ class Team(models.Model):
 
 
 class Player(models.Model):
-	name = models.CharField(null=True, max_length=75)
+	name = models.CharField(null=True, max_length=100)
 	team = models.ForeignKey('Team', null=True)
-	position = models.CharField(null=True, max_length=25)
+	position = models.CharField(null=True, max_length=50)
 	number = models.IntegerField(null=True, max_length=2)
 	class_year_choices = (
 		('Freshman', 'Freshman'),
@@ -36,11 +36,11 @@ class Player(models.Model):
 		('Redshirt Senior', 'Redshirt Senior'),
 		('Graduate', 'Graduate'),
 	)
-	class_year = models.CharField(null=True, max_length=2, choices=class_year_choices, verbose_name='Class Year')
+	class_year = models.CharField(null=True, max_length=50, choices=class_year_choices, verbose_name='Class Year')
 	hometown = models.CharField(null=True, max_length=150, help_text='Please use the following format: <em>City, State</em>.')
 	highschool = models.CharField(null=True, max_length=150, verbose_name='High School')
-	height = models.CharField(null=True, max_length=5, help_text='Please use the following format: <em>5\'11\"</em>.')
-	weight = models.IntegerField(null=True, max_length=3, help_text='Please use pounds.')
+	height = models.CharField(null=True, max_length=10, help_text='Please use the following format: <em>5\'11\"</em>.')
+	weight = models.IntegerField(null=True, max_length=10, help_text='Please use pounds.')
 	portrait = models.ImageField(null=True, upload_to='portraits/players/', height_field=None, width_field=None, max_length=200)
 
 	class Meta(object):
