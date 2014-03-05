@@ -24,7 +24,7 @@ class Player(models.Model):
 	name = models.CharField(null=True, max_length=100)
 	team = models.ForeignKey('Team', null=True)
 	position = models.CharField(null=True, max_length=50)
-	number = models.IntegerField(null=True, max_length=2)
+	number = models.IntegerField(null=True, max_length=10)
 	class_year_choices = (
 		('Freshman', 'Freshman'),
 		('Sophomore', 'Sophomore'),
