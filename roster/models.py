@@ -1,6 +1,7 @@
 from django.db import models
 
 # Create your models here.
+#changing file
  
 class Team(models.Model):
 	name = models.CharField(null=True, unique=True, max_length=100, verbose_name='Team')
