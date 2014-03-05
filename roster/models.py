@@ -37,10 +37,10 @@ class Player(models.Model):
 		('Graduate', 'Graduate'),
 	)
 	class_year = models.CharField(null=True, max_length=50, choices=class_year_choices, verbose_name='Class Year')
-	hometown = models.CharField(null=True, max_length=150)
+	hometown = models.CharField(null=True, max_length=150, help_text='Please use the following format: <em>City, State</em>.')
 	highschool = models.CharField(null=True, max_length=150, verbose_name='High School')
-	height = models.CharField(null=True, max_length=10)
-	weight = models.IntegerField(null=True, max_length=10)
+	height = models.CharField(null=True, max_length=10, help_text='Please use the following format: <em>5\'11\"</em>.')
+	weight = models.IntegerField(null=True, max_length=10, help_text='Please use pounds.')
 	portrait = models.ImageField(null=True, upload_to='portraits/players/', height_field=None, width_field=None, max_length=200)
 
 	class Meta(object):
