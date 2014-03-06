@@ -72,7 +72,7 @@ class Command(BaseCommand):
 				html = response.read()
 				soup = BeautifulSoup(html, 'html.parser')
 
-				playerdata = soup.find_all('ul')[26]
+				playerdata = soup.find_all('ul')[-1]
 
 				# for name in soup.find_all('span', {'class': 'whiteBox'}):
 				# 	player_names.append(name.next.next.strip())
