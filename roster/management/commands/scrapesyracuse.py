@@ -49,6 +49,8 @@ class Command(BaseCommand):
 			current_team = Team.objects.get(name=team)
 			current_team.twitter = 'SyracuseMBB'
 			current_team.color = '#FF5A00'
+			current_team.logo = 'logos/syracuse.png'
+			current_team.portrait = 'portraits/teams/carrierdome.jpg'
 			current_team.save()
 
 

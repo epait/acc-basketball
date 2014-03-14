@@ -48,6 +48,8 @@ class Command(BaseCommand):
 			current_team = Team.objects.get(name=team)
 			current_team.twitter = 'HailToPittHoops'
 			current_team.color = '#111150'
+			current_team.logo = 'logos/pitt.png'
+			current_team.portrait = 'portraits/teams/petersencenter.jpg'
 			current_team.save()
 
 

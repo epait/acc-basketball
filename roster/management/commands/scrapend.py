@@ -48,6 +48,8 @@ class Command(BaseCommand):
 			current_team = Team.objects.get(name=team)
 			current_team.twitter = 'FightingIrish'
 			current_team.color = '#002B5B'
+			current_team.logo = 'logos/notredame.png'
+			current_team.portrait = 'portraits/teams/edmundjoycecenter.jpg'
 			current_team.save()
 
 

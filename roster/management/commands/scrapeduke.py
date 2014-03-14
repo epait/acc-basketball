@@ -48,6 +48,8 @@ class Command(BaseCommand):
 			current_team = Team.objects.get(name=team)
 			current_team.twitter = 'Duke_MBB'
 			current_team.color = '#14427f'
+			current_team.logo = 'logos/duke.png'
+			current_team.portrait = 'portraits/teams/cameronindoor.jpg'
 			current_team.save()
 
 			for link in tabledata.select('td.showPopup > a'):
